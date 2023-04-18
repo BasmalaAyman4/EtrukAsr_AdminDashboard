@@ -39,7 +39,7 @@ const DataCase = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Add New Category
-                <Link to="/users/new" className="link">
+                <Link to="/products/new" className="link">
                     Add New
                 </Link>
             </div>

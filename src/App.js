@@ -1,7 +1,5 @@
 import Home from "./pages/home/Home";
-import List from "./pages/list/ListData";
 import Single from "./pages/single/Single";
-import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -12,6 +10,9 @@ import { AuthContext } from "./context/AuthContext";
 import ListData from "./pages/list/ListData";
 import ListCategory from "./pages/list/ListCategory";
 import ListDonation from "./pages/list/ListDonation";
+import NewCase from "./pages/new/NewCase";
+import NewCategory from "./pages/new/NewCategory";
+import NewDonationType from "./pages/new/NewDonationType";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -57,7 +58,7 @@ function App() {
                 path="new"
                 element={
 
-                  <New inputs={userInputs} title="Add New User" />
+                  <NewCase />
 
                 }
               />
@@ -82,7 +83,7 @@ function App() {
                 path="new"
                 element={
 
-                  <New inputs={productInputs} title="Add New Product" />
+                  <NewCategory />
 
                 }
               />
@@ -108,7 +109,7 @@ function App() {
                 path="new"
                 element={
 
-                  <New inputs={productInputs} title="Add New Orders" />
+                  <NewDonationType />
 
                 }
               />

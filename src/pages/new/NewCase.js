@@ -1,17 +1,17 @@
-import "./single.scss";
+import "./new.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useEffect, useState, useRef } from "react";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useEffect, useState, useRef } from "react";
 import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
-import { useParams } from 'react-router-dom';
-const Single = () => {
+const New = () => {
   const [dataCategories, setDataCategories] = useState([]);
   const [dataType, setDataType] = useState([]);
   const [formData, setFormData] = useState({
@@ -24,8 +24,6 @@ const Single = () => {
     caseTypeId: '',
     donationTypeId: '',
   })
-  const casesId = useParams()
-  const caseId = casesId.id
   useEffect(() => {
     axios.get(`http://otrok.invoacdmy.com/api/dashboard/category/index`)
       .then(response => {
@@ -39,22 +37,6 @@ const Single = () => {
         console.log(response)
       }
       ).catch((err) => { console.log(err) })
-
-    axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/${caseId}`)
-      .then((response) => {
-        setFormData({
-          titleAr: response.data.case.name_ar,
-          titleEn: response.data.case.name_en,
-          img: response.data.case.image,
-          descriptionEn: response.data.case.description_en,
-          descriptionAr: response.data.case.description_ar,
-          totalPrice: response.data.case.initial_amount,
-          caseTypeId: response.data.case.category_id,
-          donationTypeId: response.data.donationtype_id,
-        })
-        console.log(response, "show")
-        console.log(formData, "gg")
-      }).catch((err) => { console.log(err) })
 
   }, [])
   const addFile = useRef(null)
@@ -83,24 +65,26 @@ const Single = () => {
   const onChangeHandler = e => {
 
     setFormData({ ...formData, [e.target.name]: e.target.value })
+    console.log(formData, "form")
+    console.log(formData.paiedAmount)
   }
-  const editCase = new FormData();
-  editCase.append("name_ar", formData.titleAr);
-  editCase.append("name_en", formData.titleEn);
-  editCase.append("description_ar", formData.descriptionAr);
-  editCase.append("description_en", formData.descriptionEn);
-  editCase.append("initial_amount", formData.totalPrice);
-  editCase.append("image", formData.img);
-  editCase.append("donationtype_id", formData.donationTypeId);
-  editCase.append("category_id", formData.caseTypeId);
-  editCase.append("status", "published");
+  const addNewCase = new FormData();
+  addNewCase.append("name_ar", formData.titleAr);
+  addNewCase.append("name_en", formData.titleEn);
+  addNewCase.append("description_ar", formData.descriptionAr);
+  addNewCase.append("description_en", formData.descriptionEn);
+  addNewCase.append("initial_amount", formData.totalPrice);
+  addNewCase.append("image", formData.img);
+  addNewCase.append("donationtype_id", formData.donationTypeId);
+  addNewCase.append("category_id", formData.caseTypeId);
+  addNewCase.append("status", "published");
   const onSubmitHandler = (e) => {
     console.log(formData.donationTypeId)
     console.log(formData)
     const toastId = toast.loading("...انتظر قليلا")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
-    axios.post(`http://otrok.invoacdmy.com/api/dashboard/case/update/${caseId}`, editCase, {
+    axios.post("http://otrok.invoacdmy.com/api/dashboard/case/store", addNewCase, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
@@ -113,13 +97,12 @@ const Single = () => {
 
   }
   return (
-    <div className="single">
+    <div className="new">
       <Sidebar />
-      <div className="singleContainer">
+      <div className="newContainer">
         <Navbar />
-
         <div className="top-case">
-          <h1>Edit Case</h1>
+          <h1>Add New Cases</h1>
         </div>
         <Form className="bottom-case" onSubmit={onSubmitHandler}>
 
@@ -197,8 +180,8 @@ const Single = () => {
 
       </div>
       <ToastContainer />
-    </div>
+    </div >
   );
 };
 
-export default Single;
+export default New;

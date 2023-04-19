@@ -4,9 +4,14 @@ import { userColumns, userRows } from "../../datatypesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import { ToastContainer, toast } from "react-toastify";
 
 const DataCase = () => {
     const [data, setDataCases] = useState([]);
+    const [seed, setSeed] = useState(1);
+    const reset = () => {
+         setSeed(Math.random());
+     }
     useEffect(() => {
         axios.get("http://otrok.invoacdmy.com/api/dashboard/category/index")
             .then(response => {
@@ -14,6 +19,15 @@ const DataCase = () => {
             }
             ).catch((err) => { console.log(err) })
     }, [])
+    function handleDeleteCase(id) {
+        axios.post(`http://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`)
+        .then(response => {
+          toast.success(response.data.message)
+          console.log(response)
+        }
+        ).catch((err) => { toast.error(err) })
+        reset()
+      }
     const actionColumn = [
         {
             field: "action",
@@ -25,11 +39,12 @@ const DataCase = () => {
                         <Link to="/users/test" style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
-                        <div
+                        <button
+                            onClick={(e)=>{handleDeleteCase(params.row.id)}}
                             className="deleteButton"
-                        >
+                            >
                             Delete
-                        </div>
+                            </button>
                     </div>
                 );
             },
@@ -44,6 +59,7 @@ const DataCase = () => {
                 </Link>
             </div>
             <DataGrid
+                key={seed}
                 className="datagrid"
                 rows={data}
                 columns={userColumns.concat(actionColumn)}
@@ -51,6 +67,7 @@ const DataCase = () => {
                 rowsPerPageOptions={[8]}
                 checkboxSelection
             />
+                <ToastContainer />
         </div>
     );
 };

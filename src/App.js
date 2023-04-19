@@ -72,7 +72,7 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path=":categoryId"
                 element={
 
                   <Single />
@@ -98,7 +98,7 @@ function App() {
                 }
               />
               <Route
-                path=":orderId"
+                path=":donationId"
                 element={
 
                   <Single />

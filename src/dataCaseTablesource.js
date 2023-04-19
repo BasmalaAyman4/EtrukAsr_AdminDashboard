@@ -14,15 +14,17 @@ export const userColumns = [
   },
   {
     field: "name_en",
-    headerName: "Name",
+    headerName: "Name En",
     width: 200,
   },
 
+
   {
-    field: "description_en",
-    headerName: "description",
-    width: 230,
+    field: "initial_amount",
+    headerName: "Required Amount ",
+    width: 200,
   },
+ 
   {
     field: "status",
     headerName: "Status",

@@ -1,14 +1,15 @@
 import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import Datatable from "../../components/datatable/Datatable"
+import DataCase from "../../components/datatable/DataCase"
+
 const ListData = () => {
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Datatable />
+        <DataCase />
       </div>
     </div>
   )

@@ -8,16 +8,17 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
 import { useParams } from 'react-router-dom';
-const Single = () => {
-  const [formData, setFormData] = useState([])
+const OneCase = () => {
+  const [oneCaseData, setOneCaseData] = useState([])
 
   const casesId = useParams()
-  const caseShowId = casesId.userId
+
 
   useEffect(() => {
-    axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/3`)
+    axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`)
       .then((response) => {
-        setFormData(response.data.case)
+        console.log(response.data.case)
+        setOneCaseData(response.data.case)
       }).catch((err) => { console.log(err) })
 
   }, [])
@@ -32,24 +33,24 @@ const Single = () => {
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src={formData.image}
+                src={oneCaseData.image}
                 alt=""
                 className="itemImg"
               />
               <div className="details">
                 <span className="itemKey">Name: </span>
-                <span className="itemValue"> {formData.name_en}</span>
+                <span className="itemValue"> {oneCaseData.name_en}</span>
                 <div className="detailItem">
                   <span className="itemKey">Description:</span>
-                  <span className="itemValue">{formData.description_en}</span>
+                  <span className="itemValue">{oneCaseData.description_en}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Total price:</span>
-                  <span className="itemValue">{formData.initial_amount}</span>
+                  <span className="itemValue">{oneCaseData.initial_amount}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Status:</span>
-                  <span className="itemValue">{formData.status}</span>
+                  <span className="itemValue">{oneCaseData.status}</span>
                 </div>
               </div>
             </div>
@@ -68,4 +69,4 @@ const Single = () => {
   );
 };
 
-export default Single;
+export default OneCase;

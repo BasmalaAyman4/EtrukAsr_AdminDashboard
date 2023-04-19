@@ -1,5 +1,5 @@
 import Home from "./pages/home/Home";
-import Single from "./pages/single/Single";
+import Single from "./pages/single/OneCase";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -7,21 +7,26 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Login from "./components/Login/Login";
 import { AuthContext } from "./context/AuthContext";
-import ListData from "./pages/list/ListData";
+
 import ListCategory from "./pages/list/ListCategory";
 import ListDonation from "./pages/list/ListDonation";
 import NewCase from "./pages/new/NewCase";
 import NewCategory from "./pages/new/NewCategory";
 import NewDonationType from "./pages/new/NewDonationType";
+import ListData from "./pages/list/ListData";
+import OneCase from "./pages/single/OneCase";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
+  const {currentUser} = useContext(AuthContext)
 
-  const { currentUser } = useContext(AuthContext)
 
   // const RequireAuth = ({ children }) => {
   //   return currentUser ? children : <Navigate to="/login" />;
   // };
-
+  
+  const RequireAuth = ({ children }) => {
+    return currentUser ? children :  <Navigate to="/login" />;
+  };
   return (
     <div className={darkMode ? "app dark" : "app"}>
 
@@ -32,33 +37,38 @@ function App() {
             <Route
               index
               element={
-
+               
+                <RequireAuth>
                 <Home />
-
+                </RequireAuth>
               }
             />
-            <Route path="users">
+            <Route path="cases">
               <Route
                 index
                 element={
-
+                  <RequireAuth>
                   <ListData />
-
+                  </RequireAuth>
                 }
               />
               <Route
-                path=":userId"
+                path=":caseId"
                 element={
-
-                  <Single />
+                  <RequireAuth>
+                     <OneCase />
+                  </RequireAuth>
+               
 
                 }
               />
               <Route
                 path="new"
                 element={
-
-                  <NewCase />
+                  <RequireAuth>
+                   <NewCase />
+               </RequireAuth>
+                
 
                 }
               />
@@ -67,23 +77,30 @@ function App() {
               <Route
                 index
                 element={
-                  <ListCategory />
+                  <RequireAuth>
+                      <ListCategory />
+              </RequireAuth>
+              
 
                 }
               />
               <Route
                 path=":categoryId"
                 element={
-
-                  <Single />
+                  <RequireAuth>
+                     <Single />
+              </RequireAuth>
+                  
 
                 }
               />
               <Route
                 path="new"
                 element={
-
-                  <NewCategory />
+                  <RequireAuth>
+                 <NewCategory />
+           </RequireAuth>
+                 
 
                 }
               />
@@ -92,24 +109,33 @@ function App() {
               <Route
                 index
                 element={
-
-                  <ListDonation />
+                  <RequireAuth>
+                    <ListDonation />
+            </RequireAuth>
+                  
+               
 
                 }
               />
               <Route
                 path=":donationId"
                 element={
-
-                  <Single />
+                  <RequireAuth>
+                       <Single />
+            </RequireAuth>
+                  
+               
 
                 }
               />
               <Route
                 path="new"
                 element={
-
-                  <NewDonationType />
+                  <RequireAuth>
+                     <NewDonationType />
+       </RequireAuth>
+             
+               
 
                 }
               />

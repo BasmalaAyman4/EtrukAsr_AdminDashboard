@@ -1,4 +1,4 @@
-import "./new.css";
+import style from "./neww.module.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useEffect, useState, useRef } from "react";
@@ -38,24 +38,24 @@ const NewCategory = () => {
 
     }
     return (
-        <div className="new">
+        <div className={`${style.new}`}>
             <Sidebar />
-            <div className="newContainer">
+            <div className={`${style.newContainer}`}>
                 <Navbar />
-                <div className="top-case">
+                <div className={`${style.topCase}`}>
                     <h1>Add New Category</h1>
                 </div>
-                <Form className="bottom-case" onSubmit={onSubmitHandler}>
-                    <div className="right-category">
+                <Form className={`${style.bottomCase}`} onSubmit={onSubmitHandler}>
+                    <div className={`${style.rightCategory}`}>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail" >
-                            <Form.Control name="titleAr" placeholder="نوع التبرع بالعربي" className="input input-category" onChange={onChangeHandler} value={formData.titleAr} />
+                            <Form.Control name="titleAr" placeholder="نوع التبرع بالعربي" className={`${style.input} ${style.inputCategory}`} onChange={onChangeHandler} value={formData.titleAr} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail" >
-                            <Form.Control name="titleEn" placeholder="    نوع التبرع بالانجيزية" className="input input-category" onChange={onChangeHandler} value={formData.titleEn} />
+                            <Form.Control name="titleEn" placeholder="    نوع التبرع بالانجيزية" className={`${style.input} ${style.inputCategory}`} onChange={onChangeHandler} value={formData.titleEn} />
                         </Form.Group>
                     </div>
-                    <Button type="submit" className="btn">
+                    <Button type="submit" className={`${style.btn}`}>
                         اضافة الان
                     </Button>
 

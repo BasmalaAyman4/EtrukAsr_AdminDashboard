@@ -48,6 +48,9 @@ const DataCase = () => {
             >
               Delete
             </button>
+            <Link to={`/case/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <div className="updateButton">Update</div>
+            </Link>
           </div>
         );
       },

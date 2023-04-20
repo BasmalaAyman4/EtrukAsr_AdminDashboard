@@ -7,25 +7,25 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Login from "./components/Login/Login";
 import { AuthContext } from "./context/AuthContext";
-
 import ListCategory from "./pages/list/ListCategory";
 import ListDonation from "./pages/list/ListDonation";
 import NewCase from "./pages/new/NewCase";
-import NewCategory from "./pages/new/NewCategory";
+import NewCategory from "./pages/new/NewCategory"
 import NewDonationType from "./pages/new/NewDonationType";
 import ListData from "./pages/list/ListData";
 import OneCase from "./pages/single/OneCase";
+import UpdateCase from "./pages/update/UpdateCase";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
-  const {currentUser} = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
 
 
   // const RequireAuth = ({ children }) => {
   //   return currentUser ? children : <Navigate to="/login" />;
   // };
-  
+
   const RequireAuth = ({ children }) => {
-    return currentUser ? children :  <Navigate to="/login" />;
+    return currentUser ? children : <Navigate to="/login" />;
   };
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -37,9 +37,9 @@ function App() {
             <Route
               index
               element={
-               
+
                 <RequireAuth>
-                <Home />
+                  <Home />
                 </RequireAuth>
               }
             />
@@ -48,7 +48,7 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                  <ListData />
+                    <ListData />
                   </RequireAuth>
                 }
               />
@@ -56,9 +56,9 @@ function App() {
                 path=":caseId"
                 element={
                   <RequireAuth>
-                     <OneCase />
+                    <OneCase />
                   </RequireAuth>
-               
+
 
                 }
               />
@@ -66,10 +66,18 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                   <NewCase />
-               </RequireAuth>
-                
+                    <NewCase />
+                  </RequireAuth>
 
+
+                }
+              />
+            </Route>
+            <Route path="case">
+              <Route
+                path=":updateId"
+                element={
+                  <UpdateCase />
                 }
               />
             </Route>
@@ -78,9 +86,9 @@ function App() {
                 index
                 element={
                   <RequireAuth>
-                      <ListCategory />
-              </RequireAuth>
-              
+                    <ListCategory />
+                  </RequireAuth>
+
 
                 }
               />
@@ -88,9 +96,9 @@ function App() {
                 path=":categoryId"
                 element={
                   <RequireAuth>
-                     <Single />
-              </RequireAuth>
-                  
+                    <Single />
+                  </RequireAuth>
+
 
                 }
               />
@@ -98,9 +106,9 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                 <NewCategory />
-           </RequireAuth>
-                 
+                    <NewCategory />
+                  </RequireAuth>
+
 
                 }
               />
@@ -111,9 +119,9 @@ function App() {
                 element={
                   <RequireAuth>
                     <ListDonation />
-            </RequireAuth>
-                  
-               
+                  </RequireAuth>
+
+
 
                 }
               />
@@ -121,10 +129,10 @@ function App() {
                 path=":donationId"
                 element={
                   <RequireAuth>
-                       <Single />
-            </RequireAuth>
-                  
-               
+                    <Single />
+                  </RequireAuth>
+
+
 
                 }
               />
@@ -132,10 +140,10 @@ function App() {
                 path="new"
                 element={
                   <RequireAuth>
-                     <NewDonationType />
-       </RequireAuth>
-             
-               
+                    <NewDonationType />
+                  </RequireAuth>
+
+
 
                 }
               />

@@ -1,4 +1,4 @@
-import "./new.css";
+import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
 import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
 const New = () => {
+  const [file, setFile] = useState("");
   const [dataCategories, setDataCategories] = useState([]);
   const [dataType, setDataType] = useState([]);
   const [formData, setFormData] = useState({
@@ -97,16 +98,15 @@ const New = () => {
 
   }
   return (
+
     <div className="new">
       <Sidebar />
       <div className="newContainer">
         <Navbar />
-        <div className="top-case">
-          <h1>Add New Cases</h1>
+        <div className="top">
+          <h1>Add New Case</h1>
         </div>
-        <Form className="bottom-case" onSubmit={onSubmitHandler}>
-
-
+        <div className="bottom">
           <div className="left">
             <input className={`fileImg  input-file-js`} ref={(e) => {
               addFileInput.current = e
@@ -117,7 +117,6 @@ const New = () => {
                   <div ref={addFile} onClick={() => { handleLogo() }}>
                     <img className="img" ref={imageFirmRef} src={addImg} alt=" اضافه صورة للحاله" />
                   </div>
-                  {/* {errors.Logo && <span className="error-message ">{errors.Logo}</span>} */}
                 </>
                 :
                 <div ref={addFile} onClick={() => { handleLogo() }}>
@@ -126,61 +125,98 @@ const New = () => {
             }
           </div>
           <div className="right">
+            <form onSubmit={onSubmitHandler}>
+              <div className="formInput">
+                <label htmlFor="file">
+                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  style={{ display: "none" }}
+                />
+              </div>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail" >
-              <Form.Control name="titleAr" placeholder="    عنوان للحالة بالعربية" className="input" onChange={onChangeHandler} value={formData.titleAr} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail" >
-              <Form.Control name="titleEn" placeholder="    عنوان للحالة بالانجيزية" className="input" onChange={onChangeHandler} value={formData.titleEn} />
+              <div className="formInput" >
+                <label>عنوان للحالة بالعربي</label>
+                <input
+                  name="titleAr"
+                  onChange={onChangeHandler}
+                  value={formData.titleAr}
+                />
+              </div>
 
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail" >
-              <Form.Control as="textarea" rows="3" name="descriptionEn" placeholder="بالانجليزيه نبذة مختصرة عن الحالة" className="input" onChange={onChangeHandler} value={formData.descriptionEn} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail" >
-              <Form.Control as="textarea" rows="3" name="descriptionAr" placeholder=" عربي نبذة مختصرة عن الحالة" className="input" onChange={onChangeHandler} value={formData.descriptionAr} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <select
-                placeholder="State"
-                className="input select"
-                name="caseTypeId"
-                onChange={onChangeHandler}
-                value={formData.caseTypeId}
-              >
-                <option >نوع الحالة</option>
-                {dataCategories && dataCategories.map(category =>
-                  <option value={category.id} key={category.id}>{category.name_en}</option>
-                )}
-              </select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <select
-                placeholder="State"
-                className="input select"
-                name="donationTypeId"
-                onChange={onChangeHandler}
-                value={formData.donationTypeId}
-              >
-                <option > نوع التبرع</option>
-                {dataType && dataType.map(type =>
-                  <option value={type.id} key={type.id} >{type.name_en}</option>
-                )}
-              </select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail" >
-              <Form.Control name="totalPrice" type='number' placeholder=" المبلغ المراد تجميعة " className="input money" onChange={onChangeHandler} value={formData.totalPrice} />
-            </Form.Group>
+              <div className="formInput" >
+                <label>عنوان للحالة بالانجليزي </label>
+                <input
+                  name="titleEn"
+                  value={formData.titleEn}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              <div className="formInput" >
+                <label>نبذة مختصره بالعربي</label>
+                <input
+                  name="descriptionAr"
+                  value={formData.descriptionAr}
+                  onChange={onChangeHandler}
+                />
+              </div>
+
+              <div className="formInput" >
+                <label>نبذة مختصرة  بالانجليزي </label>
+                <input
+                  name="descriptionEn"
+                  value={formData.descriptionEn}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              <div className="formInput" >
+                <label>  المبلغ المراد تجميعة</label>
+                <input
+                  name="totalPrice"
+                  type='number'
+                  onChange={onChangeHandler}
+                  value={formData.totalPrice}
+                />
+              </div>
+              <div className="formInput" >
+                <select
+                  className="input select"
+                  name="caseTypeId"
+                  onChange={onChangeHandler}
+                  value={formData.caseTypeId}
+                >
+                  <option >نوع الحالة</option>
+                  {dataCategories && dataCategories.map(category =>
+                    <option value={category.id} key={category.id}>{category.name_en}</option>
+                  )}
+                </select>
+              </div>
+
+              <div className="formInput" >
+                <select
+                  className="input select"
+                  name="donationTypeId"
+                  onChange={onChangeHandler}
+                  value={formData.donationTypeId}
+                >
+                  <option > نوع التبرع</option>
+                  {dataType && dataType.map(type =>
+                    <option value={type.id} key={type.id} >{type.name_en}</option>
+                  )}
+                </select>
+              </div>
+              <button type="submit">
+                Send
+              </button>
+            </form>
           </div>
-          <Button type="submit" className="btn">
-            اضافة الان
-          </Button>
-
-        </Form>
-
+          <ToastContainer />
+        </div>
       </div>
-      <ToastContainer />
-    </div >
+    </div>
   );
 };
 

@@ -8,13 +8,20 @@ import { DarkModeContext } from "./context/darkModeContext";
 import Login from "./components/Login/Login";
 import { AuthContext } from "./context/AuthContext";
 import ListCategory from "./pages/list/ListCategory";
-import ListDonation from "./pages/list/ListDonation";
+import ListDonation from "./pages/list/ListDonationType";
 import NewCase from "./pages/new/NewCase";
 import NewCategory from "./pages/new/NewCategory"
 import NewDonationType from "./pages/new/NewDonationType";
 import ListData from "./pages/list/ListData";
 import OneCase from "./pages/single/OneCase";
 import UpdateCase from "./pages/update/UpdateCase";
+import OneCategory from "./pages/single/OneCategory";
+import UpdateCategoy from "./pages/update/UpdateCategoy";
+import OneDonationType from "./pages/single/OneDonationType";
+import UpdateDonationType from "./pages/update/UpdateDonationType";
+import ListDonationType from "./pages/list/ListDonationType";
+import ListDonations from "./pages/list/ListDonations";
+
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext)
@@ -73,15 +80,15 @@ function App() {
                 }
               />
             </Route>
-            <Route path="case">
-              <Route
+            <Route path="edit">
+              <Route 
                 path=":updateId"
                 element={
                   <UpdateCase />
                 }
               />
             </Route>
-            <Route path="products">
+            <Route path="categories">
               <Route
                 index
                 element={
@@ -96,12 +103,13 @@ function App() {
                 path=":categoryId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <OneCategory />
                   </RequireAuth>
 
 
                 }
               />
+           
               <Route
                 path="new"
                 element={
@@ -113,12 +121,24 @@ function App() {
                 }
               />
             </Route>
-            <Route path="orders">
+            <Route path="editCategory">
+              <Route 
+                path=":updateCategoryId"
+                element={
+                  <UpdateCategoy />
+                }
+              />
+            </Route>
+
+
+
+
+            <Route path="donaionTypes">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <ListDonation />
+                    <ListDonationType />
                   </RequireAuth>
 
 
@@ -129,11 +149,8 @@ function App() {
                 path=":donationId"
                 element={
                   <RequireAuth>
-                    <Single />
+                    <OneDonationType />
                   </RequireAuth>
-
-
-
                 }
               />
               <Route
@@ -142,12 +159,49 @@ function App() {
                   <RequireAuth>
                     <NewDonationType />
                   </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="editType">
+              <Route 
+                path=":updateTypeId"
+                element={
+                  <UpdateDonationType />
+                }
+              />
+            </Route>
+
+            <Route path="donation">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListDonations />
+                  </RequireAuth>
 
 
 
                 }
               />
+              <Route
+                path=":donationId"
+                element={
+                  <RequireAuth>
+                    <OneDonationType />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <NewDonationType />
+                  </RequireAuth>
+                }
+              />
             </Route>
+
+        
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,33 +1,33 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatypesource";
+import { userColumns } from "../../dataCategoryTablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { ToastContainer, toast } from "react-toastify";
 
 const DataCategory = () => {
-    const [data, setDataCases] = useState([]);
+    const [dataCategories, setDataCategories] = useState([]);
     const [seed, setSeed] = useState(1);
     const reset = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("http://otrok.invoacdmy.com/api/dashboard/category/index")
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/category/index")
             .then(response => {
-                setDataCases(response.data.Categories)
+                setDataCategories(response.data.Categories)
             }
             ).catch((err) => { console.log(err) })
       
 
     }, [])
     function handleDeleteCase(id) {
-        axios.post(`http://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`)
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/destroy/${id}`)
         .then(response => {
           toast.success(response.data.message)
           console.log(response)
         }
-        ).catch((err) => { toast.error(err) })
+        ).catch((err) => { toast.error('there are cases related to this category please delete them first') })
         reset()
       }
     const actionColumn = [
@@ -36,9 +36,10 @@ const DataCategory = () => {
             headerName: "Action",
             width: 200,
             renderCell: (params) => {
+              
                 return (
                     <div className="cellAction">
-                        <Link to="/users/test" style={{ textDecoration: "none" }}>
+                        <Link to={`/categories/${params.row.id}`}  style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <button
@@ -47,6 +48,9 @@ const DataCategory = () => {
                             >
                             Delete
                             </button>
+                            <Link to={`/editCategory/${params.row.id}`} style={{ textDecoration: "none" }}>
+                               <div className="updateButton">Update</div>
+                            </Link>
                     </div>
                 );
             },
@@ -56,14 +60,14 @@ const DataCategory = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Add New Category
-                <Link to="/products/new" className="link">
+                <Link to="/categories/new" className="link">
                     Add New
                 </Link>
             </div>
             <DataGrid
                 key={seed}
                 className="datagrid"
-                rows={data}
+                rows={dataCategories}
                 columns={userColumns.concat(actionColumn)}
                 pageSize={8}
                 rowsPerPageOptions={[8]}

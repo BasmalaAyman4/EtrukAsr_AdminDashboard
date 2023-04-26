@@ -1,4 +1,5 @@
 import "./../new/new.scss";
+import "./../new/neww.module.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -30,33 +31,33 @@ const UpdateCase = () => {
     })
 
     useEffect(() => {
-        axios.get(`http://otrok.invoacdmy.com/api/dashboard/category/index`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
             .then(response => {
                 setDataCategories(response.data.Categories)
             }
             ).catch((err) => { console.log(err) })
 
-        axios.get(`http://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
             .then(response => {
                 setDataType(response.data.Donationtypes)
                 console.log(response)
             }
             ).catch((err) => { console.log(err) })
 
-        axios.get(`http://otrok.invoacdmy.com/api/dashboard/case/show/${updateCaseId}`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${updateId.updateId}`)
             .then((response) => {
                 setFormData({
-                    titleAr: response.data.case.name_ar,
-                    titleEn: response.data.case.name_en,
-                    img: response.data.case.image,
-                    descriptionEn: response.data.case.description_en,
-                    descriptionAr: response.data.case.description_ar,
-                    totalPrice: response.data.case.initial_amount,
-                    caseTypeId: response.data.case.category_id,
-                    donationTypeId: response.data.case.donationtype_id,
-                    statusCase: response.data.case.status
+                    titleAr: response.data.case[0].name_ar,
+                    titleEn: response.data.case[0].name_en,
+                    img: response.data.case[0].image,
+                    descriptionEn: response.data.case[0].description_en,
+                    descriptionAr: response.data.case[0].description_ar,
+                    totalPrice: response.data.case[0].initial_amount,
+                    caseTypeId: response.data.case[0].category_id,
+                    donationTypeId: response.data.case[0].donationtype_id,
+                    statusCase: response.data.case[0].status
                 })
-                console.log(response.data.case.name_en, "name")
+                console.log(response.data.case, "case")
                 console.log(formData, "text")
             }).catch((err) => { console.log(err) })
 
@@ -93,18 +94,22 @@ const UpdateCase = () => {
     updateCaseData.append("name_ar", formData.titleAr);
     updateCaseData.append("name_en", formData.titleEn);
     updateCaseData.append("description_ar", formData.descriptionAr);
-    updateCaseData.append("description_ar", formData.descriptionEn);
+    updateCaseData.append("description_en", formData.descriptionEn);
     updateCaseData.append("category_id", formData.caseTypeId);
     updateCaseData.append("donationtype_id", formData.donationTypeId);
     updateCaseData.append("initial_amount", formData.totalPrice);
     updateCaseData.append("status", formData.statusCase);
+    if(imageUrl){
+        updateCaseData.append("image", formData.img);
+    }
+   
     const onSubmitHandler = (e) => {
         console.log(formData.donationTypeId)
         console.log(formData)
-        const toastId = toast.loading("...انتظر قليلا")
+        const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`http://otrok.invoacdmy.com/api/dashboard/case/update/${updateCaseId}`, updateCaseData, {
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/update/${updateCaseId}`, updateCaseData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -121,9 +126,9 @@ const UpdateCase = () => {
             <Sidebar />
             <div className="newContainer">
                 <Navbar />
-                <div className="top-case">
-                    <h4>Update Cases</h4>
-                </div>
+                <div className="top">
+                 <h1>Edit Case</h1>
+               </div>
                 <div className="bottom">
                     <div className="left">
                         <input className={`fileImg  input-file-js`} ref={(e) => {
@@ -133,7 +138,7 @@ const UpdateCase = () => {
                             imageUrl == null ?
                                 <>
                                     <div ref={addFile} onClick={() => { handleLogo() }}>
-                                        <img className="img" ref={imageFirmRef} src={addImg} alt=" اضافه صورة للحاله" />
+                                        <img className="img" ref={imageFirmRef} src={formData.img} alt=" اضافه صورة للحاله" />
                                     </div>
                                 </>
                                 :
@@ -145,7 +150,7 @@ const UpdateCase = () => {
                     <div className="right">
                         <form onSubmit={onSubmitHandler}>
                             <div className="formInput" >
-                                <label>عنوان للحالة بالعربي</label>
+                            <label> Name of Case in Arabic </label>
                                 <input
                                     name="titleAr"
                                     onChange={onChangeHandler}
@@ -154,7 +159,7 @@ const UpdateCase = () => {
                             </div>
 
                             <div className="formInput" >
-                                <label>عنوان للحالة بالانجليزي </label>
+                            <label> Name of Case in English </label>
                                 <input
                                     name="titleEn"
                                     value={formData.titleEn}
@@ -162,7 +167,7 @@ const UpdateCase = () => {
                                 />
                             </div>
                             <div className="formInput" >
-                                <label>نبذة مختصره بالعربي</label>
+                            <label> Description of case in Arabic </label>
                                 <input
                                     name="descriptionAr"
                                     value={formData.descriptionAr}
@@ -171,7 +176,7 @@ const UpdateCase = () => {
                             </div>
 
                             <div className="formInput" >
-                                <label>نبذة مختصرة  بالانجليزي </label>
+                            <label>Description of case in English</label>
                                 <input
                                     name="descriptionEn"
                                     value={formData.descriptionEn}
@@ -179,7 +184,7 @@ const UpdateCase = () => {
                                 />
                             </div>
                             <div className="formInput" >
-                                <label>  المبلغ المراد تجميعة</label>
+                               <label>Required Amount of Money</label>
                                 <input
                                     name="totalPrice"
                                     type='number'
@@ -188,12 +193,20 @@ const UpdateCase = () => {
                                 />
                             </div>
                             <div className="formInput" >
-                                <label>الحالة</label>
-                                <input
+                                <select
+                                    className="input select"
                                     name="statusCase"
                                     onChange={onChangeHandler}
                                     value={formData.statusCase}
-                                />
+                                >
+                                    <option  value=''> status</option>
+                                    
+                                        <option value='pending' >pending</option>
+                                        <option value='accepted'>accepted</option>
+                                        <option value='published'>published</option>
+                                        <option value='rejected'>rejected</option>
+                                    
+                                </select>
                             </div>
                             <div className="formInput" >
                                 <select
@@ -202,7 +215,7 @@ const UpdateCase = () => {
                                     onChange={onChangeHandler}
                                     value={formData.caseTypeId}
                                 >
-                                    <option >نوع الحالة</option>
+                                     <option >Case Type</option>
                                     {dataCategories && dataCategories.map(category =>
                                         <option value={category.id} key={category.id}>{category.name_en}</option>
                                     )}
@@ -216,7 +229,7 @@ const UpdateCase = () => {
                                     onChange={onChangeHandler}
                                     value={formData.donationTypeId}
                                 >
-                                    <option > نوع التبرع</option>
+                                    <option > Donation Type</option>
                                     {dataType && dataType.map(type =>
                                         <option value={type.id} key={type.id} >{type.name_en}</option>
                                     )}

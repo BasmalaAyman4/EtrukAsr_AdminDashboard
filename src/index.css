@@ -1,17 +1,17 @@
 @font-face {
     font-family: "Changa-Regular";
-    src: url(/src/assets/fonts/static/Changa-Regular.ttf);
+    src: url(assets/fonts/static/Changa-Regular.ttf);
   }
   @font-face {
     font-family: "Changa-SemiBold";
-    src: url(/src/assets/fonts/static/Changa-SemiBold.ttf);
+    src: url(assets/fonts/static/Changa-SemiBold.ttf);
   }
   @font-face {
     font-family: "Changa-ExtraBold";
-    src: url(/src/assets/fonts/static/Changa-ExtraBold.ttf);
+    src: url(assets/fonts/static/Changa-ExtraBold.ttf);
   }
   @font-face {
     font-family: "Changa-Light";
-    src: url(/src/assets/fonts/static/Changa-Light.ttf);
+    src: url(assets/fonts/static/Changa-Light.ttf);
   }
   

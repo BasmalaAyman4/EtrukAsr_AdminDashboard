@@ -21,7 +21,7 @@
       }
 
       .left {
-        
+       
         text-align: center;
       }
 
@@ -50,6 +50,8 @@
             label {
               display: flex;
               align-items: center;
+              font-family: "Changa-Regular" !important;
+              
               gap: 10px;}
 
               .icon {
@@ -58,7 +60,7 @@
             
 
                         .input {
-                          border: 2px solid #EF8451;
+                          /* border: 2px solid #EF8451; */
                           outline: none;
                           border-radius: 5px !important;
                           padding: 1em;
@@ -79,8 +81,8 @@
                         .input:focus {
                           box-shadow: 0 0 0 0.25rem transparent;
                           border: 0px solid #EF8451 !important;
-                          transform: scale(1.00);
-                          box-shadow: 0 0 0 0.25rem rgba(238, 168, 128, 0.61);
+                      
+                          box-shadow: 0 0 0 0.25rem rgba(238, 168, 128, 0.61) !important;
                         }
             
                         .input:hover {
@@ -100,6 +102,7 @@
             cursor: pointer !important;
             
           }
+          
 .select{
   width: 100%;
 }

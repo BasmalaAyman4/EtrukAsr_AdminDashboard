@@ -11,7 +11,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
 import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
-const New = () => {
+const NewCase = () => {
   const [file, setFile] = useState("");
   const [dataCategories, setDataCategories] = useState([]);
   const [dataType, setDataType] = useState([]);
@@ -24,15 +24,16 @@ const New = () => {
     totalPrice: '',
     caseTypeId: '',
     donationTypeId: '',
+    statusCase :''
   })
   useEffect(() => {
-    axios.get(`http://otrok.invoacdmy.com/api/dashboard/category/index`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
       .then(response => {
         setDataCategories(response.data.Categories)
       }
       ).catch((err) => { console.log(err) })
 
-    axios.get(`http://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
       .then(response => {
         setDataType(response.data.Donationtypes)
         console.log(response)
@@ -78,14 +79,13 @@ const New = () => {
   addNewCase.append("image", formData.img);
   addNewCase.append("donationtype_id", formData.donationTypeId);
   addNewCase.append("category_id", formData.caseTypeId);
-  addNewCase.append("status", "published");
+  addNewCase.append("status", formData.statusCase);
   const onSubmitHandler = (e) => {
-    console.log(formData.donationTypeId)
-    console.log(formData)
-    const toastId = toast.loading("...انتظر قليلا")
+  
+    const toastId = toast.loading("please wait ... ")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
-    axios.post("http://otrok.invoacdmy.com/api/dashboard/case/store", addNewCase, {
+    axios.post("https://otrok.invoacdmy.com/api/dashboard/case/store", addNewCase, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
@@ -126,20 +126,10 @@ const New = () => {
           </div>
           <div className="right">
             <form onSubmit={onSubmitHandler}>
-              <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div>
+  
 
               <div className="formInput" >
-                <label>عنوان للحالة بالعربي</label>
+                <label>Name of Case in Arabic</label>
                 <input
                   name="titleAr"
                   onChange={onChangeHandler}
@@ -148,7 +138,7 @@ const New = () => {
               </div>
 
               <div className="formInput" >
-                <label>عنوان للحالة بالانجليزي </label>
+                <label> Name of Case in English </label>
                 <input
                   name="titleEn"
                   value={formData.titleEn}
@@ -156,7 +146,7 @@ const New = () => {
                 />
               </div>
               <div className="formInput" >
-                <label>نبذة مختصره بالعربي</label>
+                <label> Description of case in Arabic </label>
                 <input
                   name="descriptionAr"
                   value={formData.descriptionAr}
@@ -165,7 +155,7 @@ const New = () => {
               </div>
 
               <div className="formInput" >
-                <label>نبذة مختصرة  بالانجليزي </label>
+                <label>Description of case in English</label>
                 <input
                   name="descriptionEn"
                   value={formData.descriptionEn}
@@ -173,7 +163,7 @@ const New = () => {
                 />
               </div>
               <div className="formInput" >
-                <label>  المبلغ المراد تجميعة</label>
+                <label>Required Amount of Money</label>
                 <input
                   name="totalPrice"
                   type='number'
@@ -188,7 +178,7 @@ const New = () => {
                   onChange={onChangeHandler}
                   value={formData.caseTypeId}
                 >
-                  <option >نوع الحالة</option>
+                  <option >Case Type</option>
                   {dataCategories && dataCategories.map(category =>
                     <option value={category.id} key={category.id}>{category.name_en}</option>
                   )}
@@ -202,12 +192,28 @@ const New = () => {
                   onChange={onChangeHandler}
                   value={formData.donationTypeId}
                 >
-                  <option > نوع التبرع</option>
+                  <option > Donation Type</option>
                   {dataType && dataType.map(type =>
                     <option value={type.id} key={type.id} >{type.name_en}</option>
                   )}
                 </select>
               </div>
+              <div className="formInput" >
+                  <select
+                    className="input select"
+                                    name="statusCase"
+                                    onChange={onChangeHandler}
+                    value={formData.statusCase}
+                  >
+                    <option  value=''> status</option>                
+                    <option value='pending' >pending</option>
+                    <option value='accepted'>accepted</option>
+                    <option value='published'>published</option>
+                    <option value='rejected'>rejected</option>
+                   
+                                    
+                  </select>
+                </div>
               <button type="submit">
                 Send
               </button>
@@ -220,4 +226,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default NewCase;

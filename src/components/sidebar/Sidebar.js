@@ -42,23 +42,24 @@ const Sidebar = () => {
               <span>Cases</span>
             </li>
           </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
+          <Link to="/categories" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Category Type</span>
+              <span>Category </span>
             </li>
           </Link>
-          <Link to="/orders" style={{ textDecoration: "none" }}>
+          <Link to="/donaionTypes" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
               <span>Donation Type</span>
             </li>
           </Link>
-
+          <Link to="/donation" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
+            <span>Donations</span>
           </li>
+          </Link>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />

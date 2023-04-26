@@ -2,7 +2,7 @@ import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 import DataType from "../../components/datatable/DataType"
-const ListDonation = () => {
+const ListDonationType = () => {
     return (
         <div className="list">
             <Sidebar />
@@ -14,4 +14,4 @@ const ListDonation = () => {
     )
 }
 
-export default ListDonation
+export default ListDonationType

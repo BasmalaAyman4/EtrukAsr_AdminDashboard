@@ -18,7 +18,7 @@ import minus from "./../../assets/icons/mi.svg"
 import { useParams } from 'react-router-dom';
 const UpdateCase = () => {
     const updateId = useParams()
-    const updateCaseId = updateId.updateId
+    
     const [dataCategories, setDataCategories] = useState([]);
     const [dataType, setDataType] = useState([]);
     const [dataFurniture,setDataFurniture] = useState([{
@@ -373,7 +373,7 @@ const UpdateCase = () => {
         const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/update/${updateCaseId}`, addNewCase, {
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/update/${updateId.updateId}`, addNewCase, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }

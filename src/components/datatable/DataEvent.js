@@ -3,68 +3,55 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { userColumns } from '../../dataDonationTablesource';
+import { userColumns } from '../../dataEventTablesource';
 
-
-
-const DataDonation = () => {
-    const [token ,setToken] = useState(localStorage.getItem('token'))
+const DataEvent = () => {
     const [data, setData] = useState([]);
-
     const [seed, setSeed] = useState(1);
     const reset = () => {
          setSeed(Math.random());
      }
      
     useEffect(() => {
-      axios.get("https://otrok.invoacdmy.com/api/dashboard/donation/index")
+      axios.get("https://otrok.invoacdmy.com/api/dashboard/events/index")
         .then(response => {
-          setData(response.data.donations)
-
+          console.log(response.data.result)
+          setData(response.data.result)
         }
         ).catch((err) => { console.log(err) })
         reset()
     }, [])
-
-    function handleAcceptDonation(id) {
+    function handleDelete(id) {
   
-      axios.post(`https://otrok.invoacdmy.com/api/dashboard/donation/accept/${id}`,{},
-      {
-        headers: 
-        {
-          "Authorization": `Bearer ${token}`,
-        }
-      })
+      axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`)
       .then(response => {
-     
         toast.success(response.data.message)
-       console.log(response)
+        console.log(response)
       }
-      ).catch((err) => {
-    
-        toast.error(err.response.data.message)
-       })
-    
+      ).catch((err) => { toast.error(err) })
+      reset()
     }
     const actionColumn = [
       {
         field: "action",
         headerName: "Action",
-        width: 150,
+        width: 200,
         renderCell: (params) => {
           
           return (
             <div className="cellAction">
-              <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <Link to={`/event/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
-             
-            
-              <button   onClick={(e)=>{handleAcceptDonation(params.row.id)}} className="updateButton" >
-                accept 
+              <button
+                onClick={(e)=>{handleDelete(params.row.id)}}
+                className="deleteButton"
+              >
+                Delete
               </button>
-              
-         
+              <Link to={`/editEvent/${params.row.id}`} style={{ textDecoration: "none" }}>
+                <div className="updateButton">Update</div>
+              </Link>
             </div>
           );
         },
@@ -73,8 +60,10 @@ const DataDonation = () => {
     return (
       <div className="datatable">
         <div className="datatableTitle">
-           Donations
-         
+          Add New Event
+          <Link to="/event/new" className="link">
+            Add New
+          </Link>
         </div>
         <DataGrid
          key={seed}
@@ -87,7 +76,7 @@ const DataDonation = () => {
         />
           <ToastContainer />
       </div>
-  )
+    );
 }
 
-export default DataDonation
+export default DataEvent

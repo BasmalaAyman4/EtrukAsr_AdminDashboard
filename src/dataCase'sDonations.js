@@ -13,9 +13,8 @@ export const userColumns = [
     {
         field: "method",
         headerName: "Method",
-        width: 100,
+        width: 120,
     },
-  
     {
         field: "amount",
         headerName: "Amount",
@@ -31,18 +30,18 @@ export const userColumns = [
         },
       },
 
-    {
-        field: "Case ",
-        headerName: "Case",
-        width: 100,
-        renderCell: (params) => {
-          return (
-            <div className="cellWithImg">
-              {params.row.casee.name_en}
-            </div>
-          );
-        },
-      },
+    // {
+    //     field: "Case ",
+    //     headerName: "Case",
+    //     width: 100,
+    //     renderCell: (params) => {
+    //       return (
+    //         <div className="cellWithImg">
+    //           {params.row.casee.name_en}
+    //         </div>
+    //       );
+    //     },
+    //   },
       {
         field: "Type ",
         headerName: "Type Donation",

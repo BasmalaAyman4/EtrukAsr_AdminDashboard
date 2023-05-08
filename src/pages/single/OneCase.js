@@ -2,12 +2,12 @@ import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ToastContainer } from "react-toastify";
 import { Link, useParams } from 'react-router-dom';
+import DonationList from "../../components/table/DonationList";
 const OneCase = () => {
   const [oneCaseData, setOneCaseData] = useState({})
 
@@ -17,8 +17,8 @@ const OneCase = () => {
   useEffect(() => {
     axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`)
       .then((response) => {
-        console.log(response.data.case[0])
-        setOneCaseData(response.data.case[0])
+        console.log(response.data.case)
+        setOneCaseData(response.data.case)
       }).catch((err) => { console.log(err) })
 
   }, [])
@@ -97,8 +97,8 @@ const OneCase = () => {
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Transactions</h1>
-          <List />
+          <h1 className="title">All Case's Donations Transactions </h1>
+          <DonationList />
         </div>
       </div>
     </div>

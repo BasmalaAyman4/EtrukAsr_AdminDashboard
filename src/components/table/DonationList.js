@@ -1,26 +1,28 @@
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { userColumns } from '../../dataDonationTablesource';
+import { userColumns } from '../../dataCase\'sDonations';
 
 
 
-const DataDonation = () => {
+
+const DonationList = () => {
     const [token ,setToken] = useState(localStorage.getItem('token'))
     const [data, setData] = useState([]);
-
+   
+  const casesId = useParams()
     const [seed, setSeed] = useState(1);
     const reset = () => {
          setSeed(Math.random());
      }
      
     useEffect(() => {
-      axios.get("https://otrok.invoacdmy.com/api/dashboard/donation/index")
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/index/case/${casesId.caseId}`)
         .then(response => {
           setData(response.data.donations)
-
+          console.log(response.data.donations,'dddo')
         }
         ).catch((err) => { console.log(err) })
         reset()
@@ -55,7 +57,7 @@ const DataDonation = () => {
           
           return (
             <div className="cellAction">
-              <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <Link to={`/cases/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
              
@@ -83,11 +85,11 @@ const DataDonation = () => {
           columns={userColumns.concat(actionColumn)}
           pageSize={8}
           rowsPerPageOptions={[8]}
-          checkboxSelection
+    
         />
           <ToastContainer />
       </div>
   )
 }
 
-export default DataDonation
+export default DonationList

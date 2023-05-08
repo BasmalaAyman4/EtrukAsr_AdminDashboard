@@ -17,6 +17,7 @@ const DataCase = () => {
   useEffect(() => {
     axios.get("https://otrok.invoacdmy.com/api/dashboard/case/index")
       .then(response => {
+        console.log(response.data.cases)
         setData(response.data.cases)
       }
       ).catch((err) => { console.log(err) })

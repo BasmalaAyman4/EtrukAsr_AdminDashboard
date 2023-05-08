@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home";
 import Single from "./pages/single/OneCase";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -21,6 +21,14 @@ import OneDonationType from "./pages/single/OneDonationType";
 import UpdateDonationType from "./pages/update/UpdateDonationType";
 import ListDonationType from "./pages/list/ListDonationType";
 import ListDonations from "./pages/list/ListDonations";
+import OneDonation from "./pages/single/OneDonation";
+import ListVolunteer from "./pages/list/ListVolunteer";
+import OneVolunteer from "./pages/single/OneVolunteer";
+import NewEvent from "./pages/new/NewEvent";
+import OneEvent from "./pages/single/OneEvent";
+import ListEvent from "./pages/list/ListEvent";
+import UpdateEvent from "./pages/update/UpdateEvent";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -132,7 +140,7 @@ function App() {
 
 
 
-
+   
             <Route path="donaionTypes">
               <Route
                 index
@@ -187,7 +195,7 @@ function App() {
                 path=":donationId"
                 element={
                   <RequireAuth>
-                    <OneDonationType />
+                    <OneDonation />
                   </RequireAuth>
                 }
               />
@@ -200,8 +208,66 @@ function App() {
                 }
               />
             </Route>
+            <Route path="volunteer">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListVolunteer />
+                  </RequireAuth>
 
-        
+
+
+                }
+              />
+              <Route
+                path=":volunteerId"
+                element={
+                  <RequireAuth>
+                    <OneVolunteer />
+                  </RequireAuth>
+                }
+              />
+            
+            </Route>
+            <Route path="event">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListEvent />
+                  </RequireAuth>
+
+
+
+                }
+              />
+              <Route
+                path=":eventId"
+                element={
+                  <RequireAuth>
+                    <OneEvent />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <NewEvent />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="editEvent">
+              <Route 
+                path=":updateEventId"
+                element={
+                  <UpdateEvent />
+                }
+              />
+            </Route>
+            
           </Route>
         </Routes>
       </BrowserRouter>

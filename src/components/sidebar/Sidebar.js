@@ -4,6 +4,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
+import BsCalendarEvent from "@mui/icons-material/CalendarTodayOutlined"
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -24,7 +25,7 @@ const Sidebar = () => {
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
           <img src={logo} alt='' className={styles["side-bar__logo"]} />
-          <span className="logo">Admin</span>
+          {/* <span className="logo">Admin</span> */}
         </Link>
       </div>
       <hr />
@@ -51,7 +52,7 @@ const Sidebar = () => {
           <Link to="/donaionTypes" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
-              <span>Donation Type</span>
+              <span>Donations Types</span>
             </li>
           </Link>
           <Link to="/donation" style={{ textDecoration: "none" }}>
@@ -59,6 +60,18 @@ const Sidebar = () => {
             <LocalShippingIcon className="icon" />
             <span>Donations</span>
           </li>
+          </Link>
+          <Link to="/volunteer" style={{ textDecoration: "none" }}>
+            <li>
+              <PersonOutlineIcon className="icon" />
+              <span>volunteers</span>
+            </li>
+          </Link>
+          <Link to="/event" style={{ textDecoration: "none" }}>
+            <li>
+              <BsCalendarEvent className="icon" />
+              <span>Events</span>
+            </li>
           </Link>
           <p className="title">USEFUL</p>
           <li>

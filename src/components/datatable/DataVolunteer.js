@@ -1,13 +1,14 @@
+
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { userColumns } from '../../dataDonationTablesource';
+import { userColumns } from '../../dataVolunteerTablesource';
 
 
 
-const DataDonation = () => {
+const DataVolunteer = () => {
     const [token ,setToken] = useState(localStorage.getItem('token'))
     const [data, setData] = useState([]);
 
@@ -17,9 +18,9 @@ const DataDonation = () => {
      }
      
     useEffect(() => {
-      axios.get("https://otrok.invoacdmy.com/api/dashboard/donation/index")
+      axios.get("https://otrok.invoacdmy.com/api/dashboard/volunteer/index")
         .then(response => {
-          setData(response.data.donations)
+          setData(response.data.volunteers)
 
         }
         ).catch((err) => { console.log(err) })
@@ -50,19 +51,17 @@ const DataDonation = () => {
       {
         field: "action",
         headerName: "Action",
-        width: 150,
+        width: 100,
         renderCell: (params) => {
           
           return (
             <div className="cellAction">
-              <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <Link to={`/volunteer/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
              
             
-              <button   onClick={(e)=>{handleAcceptDonation(params.row.id)}} className="updateButton" >
-                accept 
-              </button>
+           
               
          
             </div>
@@ -90,4 +89,4 @@ const DataDonation = () => {
   )
 }
 
-export default DataDonation
+export default DataVolunteer;

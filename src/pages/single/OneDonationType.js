@@ -4,7 +4,7 @@ import { Navbar } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Chart from '../../components/chart/Chart'
-import List from '../../components/table/Table'
+// import List from '../../components/table/Table'
 
 const OneDonationType = () => {
    
@@ -54,7 +54,7 @@ const OneDonationType = () => {
           </div>
           <div className="bottom">
             <h1 className="title">Last Transactions</h1>
-            <List />
+            {/* <List /> */}
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import moment from 'moment/moment'
+import DataOfVoulenteerJoin from '../../components/datatable/DataOfVoulenteerJoin';
 
 const OneEvent = () => {
     const [event, setEvent] = useState({})
@@ -85,8 +86,8 @@ const OneEvent = () => {
             </div>
           </div>
           <div className="bottom">
-            <h1 className="title">All Case's Donations Transactions </h1>
-            {/* <DonationList /> */}
+            <h1 className="title">All Voulenteers who are join in this event </h1>
+              <DataOfVoulenteerJoin />
           </div>
         </div>
       </div>

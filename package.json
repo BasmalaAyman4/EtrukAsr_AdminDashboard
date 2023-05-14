@@ -21,11 +21,14 @@
     "react-circular-progressbar": "^2.0.4",
     "react-dom": "^17.0.2",
     "react-icons": "^4.8.0",
+    "react-multiple-image-input": "^1.0.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "react-toastify": "^9.1.2",
     "recharts": "^2.1.9",
     "sass": "^1.49.9",
+    "swiper": "^9.3.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

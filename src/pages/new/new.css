@@ -50,3 +50,17 @@
 	border-width: 0 2px 2px 0;
 	transform: rotate(45deg);
   }
+  .case_images{
+	display: grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-template: 1%;
+	width: 100px !important;
+	height: 100px !important;
+  }
+  .img{
+	border-radius: 5px !important;
+  }
+  .thumbs-wrapper{
+	width: 1px !important;
+	height: 1px !important;
+  }

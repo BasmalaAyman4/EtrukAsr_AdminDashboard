@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home";
 import Single from "./pages/single/OneCase";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import 'swiper/css';
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";

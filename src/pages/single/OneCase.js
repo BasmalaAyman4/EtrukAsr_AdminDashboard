@@ -34,7 +34,7 @@ const OneCase = () => {
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src={oneCaseData.image}
+                src={oneCaseData?.caseimage[0]?.image}
                 alt=""
                 className="itemImg"
               />

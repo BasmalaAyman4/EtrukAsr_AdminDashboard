@@ -15,7 +15,10 @@ import { ToastContainer } from "react-toastify";
 import addImg from "../../assets/images/eae946efbbf74117a65d488206a09b63.png"
 import plus from "./../../assets/icons/+.svg"
 import minus from "./../../assets/icons/mi.svg"
-
+import MultiImageInput from "react-multiple-image-input";
+import Swiper, { Pagination } from "swiper";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 const NewCase = () => {
   const [file, setFile] = useState("");
   const [dataCategories, setDataCategories] = useState([]);
@@ -40,7 +43,8 @@ const NewCase = () => {
     statusCase :'',
     numberOfPeople:'',
     numberOfVolunteers:'',
-    numberOfCartons:''
+    numberOfCartons:'',
+    file:''
 
     })
   useEffect(() => {
@@ -66,25 +70,55 @@ const NewCase = () => {
     let inputFileEvent = document.querySelector(".input-file-js")
     inputFileEvent.click()
   }
-  const [imageUrl, setImage] = useState(null)
+
+  const [imageUrl, setImage] = useState([])
+  const [fileImage,setFileImages] = useState()
+
   let previewUploadImage = (e) => {
-    let file = e.target.files[0];
-    if (!file) {
-      return;
+    let files = e.target.files
+    setFileImages(e.target.files)
+  
+    if (!files) {
+        return;
     }
-    let preViewLink = URL.createObjectURL(file);
-    setImage(preViewLink)
+
+let ImagesArray = Object.entries(e.target.files).map((e) =>
+  URL.createObjectURL(e[1])
+);
+console.log(ImagesArray);
+setImage([...imageUrl, ...ImagesArray]);
+
+
+  
     setFormData(prevValue => {
-      return {
-        ...prevValue,
-        'img': file
-      }
+        return {
+            ...prevValue,
+            'img': files
+        }
     })
+    
+    console.log(formData)
   }
   const onChangeHandler = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
-  
+  let previewUploadFile = (e) => {   
+    let file = e.target.files[0];
+    if(!file){
+      return;
+    }
+     setFormData(prevValue=>{ 
+      return{
+        ...prevValue,
+        file : file
+      } 
+    })
+  }
+  function deleteFile(e) {
+    e.preventDefault()
+   setImage([])
+  }
+   
   const addItem = () => {
     let newfield = {
     nameEnItem:"",
@@ -100,8 +134,7 @@ const NewCase = () => {
     setDataFurniture(data)
   }
 
-   
- 
+  
   const [checkedEnKind, setCheckedEnKind] = useState([]);
 
   function handleCheckedKind(e){
@@ -142,10 +175,17 @@ const NewCase = () => {
   addNewCase.append("name_en", formData.titleEn);
   addNewCase.append("description_ar", formData.descriptionAr);
   addNewCase.append("description_en", formData.descriptionEn);
-  addNewCase.append("image", formData.img);
   addNewCase.append("donationtype_id", formData.donationTypeId);
   addNewCase.append("category_id", formData.caseTypeId);
   addNewCase.append("status", formData.statusCase);
+  addNewCase.append("file", formData.file);
+  if(fileImage){
+
+    [...fileImage].forEach((item,index) => {
+      addNewCase.append("images[]", item);
+ 
+    })
+  }
    if(formData.donationTypeId === "1"){
     addNewCase.append("initial_amount", formData.totalPrice);
    }
@@ -342,6 +382,8 @@ const NewCase = () => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+      
+                    
         <div className="top">
           <h1>Add New Case</h1>
         </div>
@@ -349,21 +391,39 @@ const NewCase = () => {
           <div className="left">
             <input className={`fileImg  input-file-js`} ref={(e) => {
               addFileInput.current = e
-            }} id="input-file" name="img" type="file" onChange={(e) => { previewUploadImage(e) }} />
+            }} id="input-file" multiple name="img" type="file" onChange={(e) => { previewUploadImage(e) }} />
             {
-              imageUrl == null ?
+              
+              imageUrl.length === 0 ?
                 <>
                   <div ref={addFile} onClick={() => { handleLogo() }}>
                     <img className="img" ref={imageFirmRef} src={addImg} alt=" اضافه صورة للحاله" />
                   </div>
                 </>
                 :
-                <div ref={addFile} onClick={() => { handleLogo() }}>
-                  <img className="img" ref={imageContentRef} src={imageUrl} alt="" />
-                </div>
+                <>
+                <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
+                  
+                {imageUrl.length > 0 &&
+                  imageUrl.map((item, index) => {
+                    return(
+                    <div ref={addFile} onClick={() => { handleLogo() }}>
+                      <img width={50} height={50} className="img" ref={imageContentRef} src={item} alt="" />
+                    </div>
+                 
+                   );
+                  })}
+                
+                     </Carousel>
+                        <button className='btn' type="button" onClick={(e) => deleteFile(e)}>
+                        delete
+                     </button>
+                     </>
             }
+                 
           </div>
           <div className="right">
+        
             <form onSubmit={onSubmitHandler}>
   
 
@@ -399,6 +459,17 @@ const NewCase = () => {
                   name="descriptionEn"
                   value={formData.descriptionEn}
                   onChange={onChangeHandler}
+                />
+              </div>
+              <div className="formInput" >
+                <label>Attachment file</label>
+                <input
+                  name="file"
+                  className={`${styles.input}`} 
+                  placeholder="الملف الملحق"
+                  type='file' 
+                  ref={(e)=>{addFileInput.current = e}} 
+                  onChange={(e)=>{previewUploadFile(e)}} 
                 />
               </div>
               <div className="formInput" >

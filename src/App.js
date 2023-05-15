@@ -3,7 +3,7 @@ import Single from "./pages/single/OneCase";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import 'swiper/css';
 import "./style/dark.scss";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Login from "./components/Login/Login";
 import { AuthContext } from "./context/AuthContext";
@@ -28,12 +28,19 @@ import NewEvent from "./pages/new/NewEvent";
 import OneEvent from "./pages/single/OneEvent";
 import ListEvent from "./pages/list/ListEvent";
 import UpdateEvent from "./pages/update/UpdateEvent";
+import { useState } from "react";
 
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext)
-
+ 
+  // useEffect(() => {
+  //   if(localStorage.getItem('User')!==0){
+  //     localStorage.clear()
+  //   }
+   
+  // },[]);
 
   // const RequireAuth = ({ children }) => {
   //   return currentUser ? children : <Navigate to="/login" />;

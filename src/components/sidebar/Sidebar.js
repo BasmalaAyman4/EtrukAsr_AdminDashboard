@@ -12,14 +12,23 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import AiFillBankIcon from '@mui/icons-material/Home'
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logo from './../../../src/assets/images/whiteLogo.png'
 import styles from "./Sidebar.module.css"
 
+
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  const Logout = async () => {
+    await delay(1000);
+    localStorage.setItem('tokenA','')
+    window.location.reload();
+
+  }
   return (
     <div className="sidebar">
       <div className="top">
@@ -75,8 +84,8 @@ const Sidebar = () => {
           </Link>
           <p className="title">USEFUL</p>
           <li>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
+            <AiFillBankIcon className="icon" />
+            <span>Charities</span>
           </li>
           <li>
             <NotificationsNoneIcon className="icon" />
@@ -100,9 +109,9 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
+          <li onClick={()=>{Logout()}}>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+              <span>Logout</span>
           </li>
         </ul>
       </div>

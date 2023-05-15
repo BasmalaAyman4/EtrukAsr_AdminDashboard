@@ -178,7 +178,9 @@ setImage([...imageUrl, ...ImagesArray]);
   addNewCase.append("donationtype_id", formData.donationTypeId);
   addNewCase.append("category_id", formData.caseTypeId);
   addNewCase.append("status", formData.statusCase);
+  if(formData.file){
   addNewCase.append("file", formData.file);
+  }
   if(fileImage){
 
     [...fileImage].forEach((item,index) => {

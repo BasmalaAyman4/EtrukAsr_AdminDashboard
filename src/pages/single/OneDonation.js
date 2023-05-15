@@ -17,6 +17,7 @@ const OneDonation = () => {
   useEffect(() => {
     axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/show/${DonationId.donationId}`)
       .then((response) => {
+      console.log(response.data.donation)
         setOneDonationData(response.data.donation[0])
         const formatter = new Intl.DateTimeFormat('en-GB', {
           year: 'numeric', month: '2-digit', day: '2-digit',

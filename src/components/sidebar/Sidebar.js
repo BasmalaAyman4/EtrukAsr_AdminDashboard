@@ -18,14 +18,14 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logo from './../../../src/assets/images/whiteLogo.png'
 import styles from "./Sidebar.module.css"
-
+import GavelIcon from '@mui/icons-material/Gavel';
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
   const delay = ms => new Promise(res => setTimeout(res, ms));
   const Logout = async () => {
     await delay(1000);
-    localStorage.setItem('tokenA','')
+    localStorage.setItem('tokenA', '')
     window.location.reload();
 
   }
@@ -65,10 +65,10 @@ const Sidebar = () => {
             </li>
           </Link>
           <Link to="/donation" style={{ textDecoration: "none" }}>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Donations</span>
-          </li>
+            <li>
+              <LocalShippingIcon className="icon" />
+              <span>Donations</span>
+            </li>
           </Link>
           <Link to="/volunteer" style={{ textDecoration: "none" }}>
             <li>
@@ -80,6 +80,12 @@ const Sidebar = () => {
             <li>
               <BsCalendarEvent className="icon" />
               <span>Events</span>
+            </li>
+          </Link>
+          <Link to="/acution" style={{ textDecoration: "none" }}>
+            <li>
+              <GavelIcon className="icon" />
+              <span>Acutions</span>
             </li>
           </Link>
           <p className="title">USEFUL</p>
@@ -109,9 +115,9 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li onClick={()=>{Logout()}}>
+          <li onClick={() => { Logout() }}>
             <ExitToAppIcon className="icon" />
-              <span>Logout</span>
+            <span>Logout</span>
           </li>
         </ul>
       </div>

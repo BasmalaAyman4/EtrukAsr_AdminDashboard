@@ -27,19 +27,21 @@ import OneVolunteer from "./pages/single/OneVolunteer";
 import NewEvent from "./pages/new/NewEvent";
 import OneEvent from "./pages/single/OneEvent";
 import ListEvent from "./pages/list/ListEvent";
+import ListAcution from "./pages/list/ListAcution";
 import UpdateEvent from "./pages/update/UpdateEvent";
+import UpdateAcution from "./pages/update/UpdateAcution";
 import { useState } from "react";
 
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext)
- 
+
   // useEffect(() => {
   //   if(localStorage.getItem('User')!==0){
   //     localStorage.clear()
   //   }
-   
+
   // },[]);
 
   // const RequireAuth = ({ children }) => {
@@ -80,8 +82,6 @@ function App() {
                   <RequireAuth>
                     <OneCase />
                   </RequireAuth>
-
-
                 }
               />
               <Route
@@ -96,7 +96,7 @@ function App() {
               />
             </Route>
             <Route path="edit">
-              <Route 
+              <Route
                 path=":updateId"
                 element={
                   <UpdateCase />
@@ -124,7 +124,7 @@ function App() {
 
                 }
               />
-           
+
               <Route
                 path="new"
                 element={
@@ -137,7 +137,7 @@ function App() {
               />
             </Route>
             <Route path="editCategory">
-              <Route 
+              <Route
                 path=":updateCategoryId"
                 element={
                   <UpdateCategoy />
@@ -147,7 +147,7 @@ function App() {
 
 
 
-   
+
             <Route path="donaionTypes">
               <Route
                 index
@@ -178,7 +178,7 @@ function App() {
               />
             </Route>
             <Route path="editType">
-              <Route 
+              <Route
                 path=":updateTypeId"
                 element={
                   <UpdateDonationType />
@@ -235,7 +235,7 @@ function App() {
                   </RequireAuth>
                 }
               />
-            
+
             </Route>
             <Route path="event">
               <Route
@@ -244,9 +244,6 @@ function App() {
                   <RequireAuth>
                     <ListEvent />
                   </RequireAuth>
-
-
-
                 }
               />
               <Route
@@ -267,14 +264,48 @@ function App() {
               />
             </Route>
             <Route path="editEvent">
-              <Route 
+              <Route
                 path=":updateEventId"
                 element={
                   <UpdateEvent />
                 }
               />
             </Route>
-            
+            <Route path="acution">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListAcution />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":eventId"
+                element={
+                  <RequireAuth>
+                    <OneEvent />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <NewEvent />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="editAcution">
+              <Route
+                path=":updateAcutionId"
+                element={
+                  <UpdateAcution />
+                }
+              />
+            </Route>
+
           </Route>
         </Routes>
       </BrowserRouter>

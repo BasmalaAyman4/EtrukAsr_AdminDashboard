@@ -13,6 +13,7 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AiFillBankIcon from '@mui/icons-material/Home'
+import {AiOutlineGold} from 'react-icons/ai'
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -89,27 +90,18 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">USEFUL</p>
+          <Link to="/charities" style={{ textDecoration: "none" }}>
           <li>
             <AiFillBankIcon className="icon" />
             <span>Charities</span>
           </li>
+          </Link>
+          <Link to="/gold" style={{ textDecoration: "none" }}>
           <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
+            <AiOutlineGold className="icon" />
+            <span>Gold Price</span>
           </li>
-          <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li>
+          </Link>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

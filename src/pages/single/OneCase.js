@@ -9,7 +9,7 @@ import DonationList from "../../components/table/DonationList";
 import { Carousel } from "react-responsive-carousel";
 const OneCase = () => {
   const [oneCaseData, setOneCaseData] = useState({})
-  const [one, setOne] = useState({})
+  const [one, setOne] = useState([])
   const casesId = useParams()
 
 
@@ -18,8 +18,8 @@ const OneCase = () => {
     axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`)
       .then((response) => {
         console.log(response.data.case)
-        setOneCaseData(response.data.case)
-        setOne(response.data.case.caseimage)
+        setOneCaseData(response.data?.case)
+        setOne(response.data?.case?.caseimage)
       }).catch((err) => { console.log(err) })
 
   }, [])
@@ -33,11 +33,11 @@ const OneCase = () => {
 
         <div className="top">
           <div className="left">
-            <Link to={`/edit/${oneCaseData.id}`} className="editButton">Edit</Link>
+            <Link to={`/edit/${oneCaseData?.id}`} className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
-              <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
-                {one && one.map((imgSrc, index) => (<img src={imgSrc.image} key={index} alt="" />))}
+              <Carousel width={350} autoPlay interval="1000" transitionTime="1000" >
+                {one && one.map((imgSrc, index) => (<img src={imgSrc?.image} key={index} alt="" />))}
               </Carousel>
 
 
@@ -62,6 +62,7 @@ const OneCase = () => {
                   <span className="itemKey">Donation Type Ar: </span>
                   <span className="itemValue"> {oneCaseData?.donationtype?.name_ar}</span>
                 </div>
+                
                 <div className="detailItem">
                   <span className="itemKey">Donation Type En: </span>
                   <span className="itemValue"> {oneCaseData?.donationtype?.name_en}</span>
@@ -87,6 +88,14 @@ const OneCase = () => {
                   <span className="itemKey">Remaining Amount:</span>
                   <span className="itemValue">{oneCaseData?.remaining_amount}</span>
                 </div>
+                {oneCaseData?.file ?
+                <div className="detailItem">
+                  <span className="itemKey">File Attachment :</span>
+                  <span className="itemValue"><Link to={oneCaseData?.file}>click here</Link></span>
+                </div>
+                :
+                null
+                } 
                 <div className="detailItem">
                   <span className="itemKey">Status:</span>
                   <span className="itemValue">{oneCaseData?.status}</span>

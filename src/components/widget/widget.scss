@@ -30,7 +30,10 @@
       font-size: 12px;
       border-bottom: 1px solid gray;
     }
-
+    a{
+      text-decoration: none !important;
+      color: rgb(160, 160, 160) !important;
+    }
     .percentage {
       display: flex;
       align-items: center;
@@ -45,10 +48,11 @@
     }
 
     .icon {
-      font-size: 18px;
+      font-size: 40px;
       padding: 5px;
+      margin-top: 20px;
       border-radius: 5px;
-      align-self: flex-end;
+      align-self: flex-start;
     }
   }
 }

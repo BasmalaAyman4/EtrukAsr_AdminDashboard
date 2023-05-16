@@ -26,8 +26,9 @@ const UpdateAcution = () => {
         endDate: '',
         endTime: '',
         statusAcution: '',
+      
     })
-    const img = formData.img
+   
     useEffect(() => {
 
 
@@ -40,16 +41,19 @@ const UpdateAcution = () => {
                     descriptionEn: response.data.mazad.description_en,
                     descriptionAr: response.data.mazad.description_ar,
                     endDate: response.data.mazad.end_date,
-                    endTime: response.data.mazad.end_time
+                    endTime: response.data.mazad.end_time,
+                    statusAcution: response.data.mazad.status
                 })
                 console.log(response.data.event, "event")
                 console.log(formData, "text")
             }).catch((err) => { console.log(err) })
 
     }, [])
-    console.log(img, "jjkjh")
+
+    const img = formData.img
+
     const UpdateAcution = new FormData();
-    UpdateAcution.append("status", formData.statusCase);
+    UpdateAcution.append("status", formData.statusAcution);
 
     const onChangeHandler = e => {
 
@@ -60,7 +64,7 @@ const UpdateAcution = () => {
         const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/mazad/update/${updateId.updateAcutionId}?status=accepted`, UpdateAcution, {
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/mazad/update/${updateId.updateAcutionId}`, UpdateAcution, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -77,12 +81,12 @@ const UpdateAcution = () => {
             <div className="newContainer">
                 <Navbar />
                 <div className="top">
-                    <h1>Edit Acution</h1>
+                    <h1>Accept Acution</h1>
                 </div>
                 <div className="bottom">
-                    <div className="left">
+                    <div className="left mt-4">
                         <Carousel width={400} autoPlay interval="1000" transitionTime="1000" >
-                            {img && img.map((imgSrc, index) => (<img src={imgSrc.image} key={index} alt="" />))}
+                            {img && img.map((imgSrc, index) => (<img height={365}  src={imgSrc.image} key={index} alt="" />))}
                         </Carousel>
                     </div>
                     <div className="right">
@@ -142,6 +146,20 @@ const UpdateAcution = () => {
                                     value={formData.endTime}
                                 />
                             </div>
+                            {formData.statusAcution === 'finished'? 
+                            <div className="formInput" >
+                                <select
+                                    className="input select"
+                                    name="statusAcution"
+                                    value={formData.statusAcution}
+                                >
+                                    <option value=''> status</option>
+                                    <option value='finished'>finished</option>
+
+                                </select>
+
+                            </div>
+                            :
                             <div className="formInput" >
                                 <select
                                     className="input select"
@@ -149,16 +167,16 @@ const UpdateAcution = () => {
                                     onChange={onChangeHandler}
                                     value={formData.statusAcution}
                                 >
-                                    <option value=''> status</option>
-
+                                    <option value=''> status</option>                  
+                                    <option value='pending'>pending</option>
                                     <option value='accepted'>accepted</option>
-                                    <option value='published'>published</option>
                                     <option value='rejected'>rejected</option>
+                                
 
                                 </select>
 
                             </div>
-
+                         }
 
                             <button type="submit">
                                 Send

@@ -57,10 +57,8 @@ const DataEvent = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Acution
-                <Link to="/event/new" className="link">
-                    Add New
-                </Link>
+                All Acutions
+               
             </div>
             <DataGrid
                 key={seed}

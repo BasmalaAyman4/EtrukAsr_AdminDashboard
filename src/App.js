@@ -31,6 +31,9 @@ import ListAcution from "./pages/list/ListAcution";
 import UpdateEvent from "./pages/update/UpdateEvent";
 import UpdateAcution from "./pages/update/UpdateAcution";
 import { useState } from "react";
+import UpdateGoldPrice from "./pages/update/UpdateGoldPrice";
+import OneCharity from "./pages/single/OneCharity";
+import ListCharity from "./pages/list/ListCharity";
 
 
 function App() {
@@ -280,22 +283,7 @@ function App() {
                   </RequireAuth>
                 }
               />
-              <Route
-                path=":eventId"
-                element={
-                  <RequireAuth>
-                    <OneEvent />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <RequireAuth>
-                    <NewEvent />
-                  </RequireAuth>
-                }
-              />
+             
             </Route>
             <Route path="editAcution">
               <Route
@@ -305,7 +293,33 @@ function App() {
                 }
               />
             </Route>
-
+            <Route
+                path="gold"
+                element={
+                  <RequireAuth>
+                    <UpdateGoldPrice />
+                  </RequireAuth>
+                }
+              />
+               <Route path="charities">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ListCharity />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":charityId"
+                element={
+                  <RequireAuth>
+                    <OneCharity />
+                  </RequireAuth>
+                }
+              />
+           
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

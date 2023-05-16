@@ -15,7 +15,13 @@ const OneCategory = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${categoryId.categoryId}`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${categoryId.categoryId}`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
       .then((response) => {
         console.log(response.data.Category)
         setOneCategoryData(response.data.Category)

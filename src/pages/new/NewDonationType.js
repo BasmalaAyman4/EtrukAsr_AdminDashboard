@@ -26,11 +26,13 @@ const NewCategory = () => {
         const toastId = toast.loading("please waiting ...")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post("https://otrok.invoacdmy.com/api/dashboard/donationtype/store", addNewCase, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
+        axios.post("https://otrok.invoacdmy.com/api/dashboard/donationtype/store", addNewCase,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then(response => {
                 toast.success(response.data.message)
                 console.log(response)

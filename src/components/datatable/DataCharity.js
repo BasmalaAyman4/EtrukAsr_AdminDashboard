@@ -14,7 +14,13 @@ const DataCharity = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/index")
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/charity/index",{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
             .then(response => {
                 setDataCharities(response.data.charities)
             }

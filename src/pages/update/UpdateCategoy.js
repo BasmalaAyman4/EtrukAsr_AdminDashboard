@@ -20,7 +20,13 @@ const UpdateCategoy = () => {
         descriptionAr: '',
       })
       useEffect(() => {
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${updateId.updateCategoryId}`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/show/${updateId.updateCategoryId}`,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then((response) => {
                 setFormData({
                     nameAr: response.data.Category.name_ar,
@@ -79,11 +85,13 @@ const UpdateCategoy = () => {
         const toastId = toast.loading("please wait ... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/update/${updateId.updateCategoryId}`, UpdateCategoyData, {
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/update/${updateId.updateCategoryId}`, UpdateCategoyData,{
           headers: {
-            "Content-Type": "multipart/form-data"
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
           }
-        })
+      })
           .then(response => {
             toast.success(response.data.message)
             console.log(response)

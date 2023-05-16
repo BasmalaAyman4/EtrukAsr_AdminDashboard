@@ -12,7 +12,13 @@ const OneVolunteer = () => {
   
   
     useEffect(() => {
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/volunteer/show/${volunteerId.volunteerId}`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/volunteer/show/${volunteerId.volunteerId}`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then((response) => {
           
           setVolunteer(response.data.volunteer)

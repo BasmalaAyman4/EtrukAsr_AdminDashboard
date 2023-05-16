@@ -14,7 +14,13 @@ const OneDonationType = () => {
   
   
     useEffect(() => {
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/show/${donationTypeId.donationId}`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/show/${donationTypeId.donationId}`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then((response) => {
           console.log(response.data.Donationtype)
           setOneDonationType(response.data.Donationtype)

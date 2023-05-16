@@ -32,7 +32,13 @@ const UpdateAcution = () => {
     useEffect(() => {
 
 
-        axios.get(`https://otrok.invoacdmy.com/api/user/mazad/show/${updateId.updateAcutionId}`)
+        axios.get(`https://otrok.invoacdmy.com/api/user/mazad/show/${updateId.updateAcutionId}`,{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
             .then((response) => {
                 setFormData({
                     titleAr: response.data.mazad.name_ar,
@@ -64,9 +70,11 @@ const UpdateAcution = () => {
         const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/mazad/update/${updateId.updateAcutionId}`, UpdateAcution, {
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/mazad/update/${updateId.updateAcutionId}`, UpdateAcution,{
             headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
                 "Content-Type": "multipart/form-data"
+      
             }
         })
             .then(response => {

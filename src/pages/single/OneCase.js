@@ -15,7 +15,13 @@ const OneCase = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
       .then((response) => {
         console.log(response.data.case)
         setOneCaseData(response.data?.case)
@@ -93,12 +99,17 @@ const OneCase = () => {
                   <span className="itemKey">File Attachment :</span>
                   <span className="itemValue"><Link to={oneCaseData?.file}>click here</Link></span>
                 </div>
+                
                 :
                 null
                 } 
                 <div className="detailItem">
                   <span className="itemKey">Status:</span>
                   <span className="itemValue">{oneCaseData?.status}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey"> User :</span>
+                  <span className="itemValue">{oneCaseData?.user?.email}</span>
                 </div>
               </div>
             </div>

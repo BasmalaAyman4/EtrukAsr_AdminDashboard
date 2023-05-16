@@ -14,7 +14,13 @@ const DataOfVoulenteerJoin = () => {
      const Id = useParams()
      
     useEffect(() => {
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/events/show/${Id.eventId}`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/events/show/${Id.eventId}`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then(response => {
           
           setData(response.data.volunteers)
@@ -24,7 +30,13 @@ const DataOfVoulenteerJoin = () => {
     }, [])
     function handleDelete(id) {
   
-      axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`)
+      axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`,'',{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
       .then(response => {
         toast.success(response.data.message)
         console.log(response)
@@ -44,7 +56,12 @@ const DataOfVoulenteerJoin = () => {
                 <Link to={`/volunteer/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
-             
+              <button
+                  onClick={(e)=>{handleDelete(params.row.id)}}
+                  className="deleteButton"
+              >
+                Delete
+              </button>
             </div>
           );
         },

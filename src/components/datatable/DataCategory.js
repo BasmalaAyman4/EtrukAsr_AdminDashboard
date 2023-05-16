@@ -13,7 +13,13 @@ const DataCategory = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/category/index")
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/category/index",{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
             .then(response => {
                 setDataCategories(response.data.Categories)
             }
@@ -22,7 +28,13 @@ const DataCategory = () => {
 
     }, [])
     function handleDeleteCase(id) {
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/destroy/${id}`)
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/category/destroy/${id}`,'',{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
         .then(response => {
           toast.success(response.data.message)
           console.log(response)

@@ -13,7 +13,13 @@ const DataEvent = () => {
      }
      
     useEffect(() => {
-      axios.get("https://otrok.invoacdmy.com/api/dashboard/events/index")
+      axios.get("https://otrok.invoacdmy.com/api/dashboard/events/index",{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then(response => {
           console.log(response.data.result)
           setData(response.data.result)
@@ -23,7 +29,13 @@ const DataEvent = () => {
     }, [])
     function handleDelete(id) {
   
-      axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`)
+      axios.post(`https://otrok.invoacdmy.com/api/dashboard/events/destroy/${id}`,'',{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
       .then(response => {
         toast.success(response.data.message)
         console.log(response)

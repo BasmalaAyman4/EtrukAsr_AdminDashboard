@@ -13,7 +13,13 @@ const DataType = () => {
          setSeed(Math.random());
      }
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/donationtype/index")
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/donationtype/index",{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
             .then(response => {
                 setDataTypes(response.data.Donationtypes)
             }
@@ -21,7 +27,13 @@ const DataType = () => {
     }, [])
 
     function handleDeleteCase(id) {
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/donationtype/destroy/${id}`)
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/donationtype/destroy/${id}`,'',{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
         .then(response => {
           toast.success(response.data.message)
           console.log(response)

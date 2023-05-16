@@ -79,9 +79,11 @@ const NewCategory = () => {
     e.preventDefault()
     axios.post("https://otrok.invoacdmy.com/api/dashboard/category/store", addNewCategory, {
       headers: {
-        "Content-Type": "multipart/form-data"
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
       }
-    })
+  })
       .then(response => {
         toast.success(response.data.message)
         console.log(response)

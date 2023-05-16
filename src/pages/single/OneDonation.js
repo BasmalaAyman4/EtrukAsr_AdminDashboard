@@ -15,7 +15,13 @@ const OneDonation = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/show/${DonationId.donationId}`)
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/show/${DonationId.donationId}`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
       .then((response) => {
       console.log(response.data.donation)
         setOneDonationData(response.data.donation[0])

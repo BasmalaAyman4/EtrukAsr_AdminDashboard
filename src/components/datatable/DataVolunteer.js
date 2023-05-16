@@ -18,7 +18,13 @@ const DataVolunteer = () => {
      }
      
     useEffect(() => {
-      axios.get("https://otrok.invoacdmy.com/api/dashboard/volunteer/index")
+      axios.get("https://otrok.invoacdmy.com/api/dashboard/volunteer/index",{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then(response => {
           setData(response.data.volunteers)
 
@@ -27,26 +33,7 @@ const DataVolunteer = () => {
         reset()
     }, [])
 
-    function handleAcceptDonation(id) {
-  
-      axios.post(`https://otrok.invoacdmy.com/api/dashboard/donation/accept/${id}`,{},
-      {
-        headers: 
-        {
-          "Authorization": `Bearer ${token}`,
-        }
-      })
-      .then(response => {
-     
-        toast.success(response.data.message)
-       console.log(response)
-      }
-      ).catch((err) => {
     
-        toast.error(err.response.data.message)
-       })
-    
-    }
     const actionColumn = [
       {
         field: "action",

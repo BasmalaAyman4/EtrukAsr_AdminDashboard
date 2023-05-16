@@ -48,14 +48,24 @@ const NewCase = () => {
 
     })
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
-      .then(response => {
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  }).then(response => {
         setDataCategories(response.data.Categories)
       }
       ).catch((err) => { console.log(err) })
 
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
-      .then(response => {
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  }).then(response => {
         setDataType(response.data.Donationtypes)
         console.log(response)
       }
@@ -366,11 +376,13 @@ setImage([...imageUrl, ...ImagesArray]);
     const toastId = toast.loading("please wait ... ")
     setTimeout(() => { toast.dismiss(toastId); }, 1000);
     e.preventDefault()
-    axios.post("https://otrok.invoacdmy.com/api/dashboard/case/store", addNewCase, {
+    axios.post("https://otrok.invoacdmy.com/api/dashboard/case/store", addNewCase,{
       headers: {
-        "Content-Type": "multipart/form-data"
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
       }
-    })
+  })
       .then(response => {
         toast.success(response.data.message)
         console.log(response)

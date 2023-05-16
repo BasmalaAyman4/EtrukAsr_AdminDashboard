@@ -19,7 +19,13 @@ const DonationList = () => {
      }
      
     useEffect(() => {
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/index/case/${casesId.caseId}`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/index/case/${casesId.caseId}`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then(response => {
           setData(response.data.donations)
           console.log(response.data.donations,'dddo')
@@ -32,11 +38,12 @@ const DonationList = () => {
   
       axios.post(`https://otrok.invoacdmy.com/api/dashboard/donation/accept/${id}`,{},
       {
-        headers: 
-        {
-          "Authorization": `Bearer ${token}`,
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
         }
-      })
+    })
       .then(response => {
      
         toast.success(response.data.message)

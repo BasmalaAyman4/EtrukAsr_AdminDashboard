@@ -13,17 +13,30 @@ const DataEvent = () => {
     }
 
     useEffect(() => {
-        axios.get("https://otrok.invoacdmy.com/api/dashboard/mazad/index")
+        axios.get("https://otrok.invoacdmy.com/api/dashboard/mazad/index",{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
             .then(response => {
                 console.log(response.data.auctions)
                 setData(response.data.auctions)
+
             }
             ).catch((err) => { console.log(err) })
         reset()
     }, [])
     function handleDelete(id) {
 
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/mazad/destroy/${id}`)
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/mazad/destroy/${id}`,'',{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+                "Content-Type": "multipart/form-data"
+      
+            }
+        })
             .then(response => {
                 toast.success(response.data.message)
                 console.log(response)

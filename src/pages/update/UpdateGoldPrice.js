@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 
 const UpdateGoldPrice = () => {
-    const [token, setToken] = useState(localStorage.getItem("tokenA"))
+  
     const [formData, setFormData] = useState({
         gold21: '',
         gold24: '',
@@ -27,13 +27,13 @@ const UpdateGoldPrice = () => {
         const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/zakat/update`,UpdateGold, {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "multipart/form-data"
-
-            }
-        })
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/zakat/update`,UpdateGold,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then(response => {
                 toast.success(response.data.message)
                 console.log(response)

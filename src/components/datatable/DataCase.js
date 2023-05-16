@@ -7,7 +7,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from "react-toastify";
 
 const DataCase = () => {
-
+  
   const [data, setData] = useState([]);
   const [seed, setSeed] = useState(1);
   const reset = () => {
@@ -15,8 +15,13 @@ const DataCase = () => {
    }
    
   useEffect(() => {
-    axios.get("https://otrok.invoacdmy.com/api/dashboard/case/index")
-      .then(response => {
+    axios.get("https://otrok.invoacdmy.com/api/dashboard/case/index", {
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  }).then(response => {
         console.log(response.data.cases)
         setData(response.data.cases)
       }
@@ -25,7 +30,13 @@ const DataCase = () => {
   }, [])
   function handleDeleteCase(id) {
 
-    axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`)
+    axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/destroy/${id}`,'', {
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
     .then(response => {
       toast.success(response.data.message)
       console.log(response)

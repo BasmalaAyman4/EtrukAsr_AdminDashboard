@@ -96,7 +96,13 @@ const Widget = ({ type }) => {
   }
 
   useEffect(() => {
-    axios.get(data.seqLink)
+    axios.get(data.seqLink,{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
     .then((response) => {
       console.log(response.data.count)
       setCount(response.data?.count)

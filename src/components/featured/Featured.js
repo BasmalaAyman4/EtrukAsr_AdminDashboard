@@ -12,7 +12,13 @@ const Featured = () => {
   const [money,setMoney] = useState('')
 
   useEffect(() => {
-    axios.get("https://otrok.invoacdmy.com/api/user/donation/money")
+    axios.get("https://otrok.invoacdmy.com/api/user/donation/money",{
+      headers: {
+          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+          "Content-Type": "multipart/form-data"
+
+      }
+  })
     .then((response) => {
       console.log(response.data.sum)
       setMoney(response.data.sum)

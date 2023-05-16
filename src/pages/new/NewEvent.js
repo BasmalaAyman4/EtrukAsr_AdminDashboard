@@ -22,13 +22,25 @@ const NewEvent = () => {
       endTime :''
     })
     useEffect(() => {
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then(response => {
           setDataCategories(response.data.Categories)
         }
         ).catch((err) => { console.log(err) })
   
-      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`,{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
         .then(response => {
           setDataType(response.data.Donationtypes)
           console.log(response)
@@ -83,9 +95,11 @@ const NewEvent = () => {
       e.preventDefault()
       axios.post("https://otrok.invoacdmy.com/api/dashboard/events/store", addNewCase, {
         headers: {
-          "Content-Type": "multipart/form-data"
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
         }
-      })
+    })
         .then(response => {
           toast.success(response.data.message)
           console.log(response)

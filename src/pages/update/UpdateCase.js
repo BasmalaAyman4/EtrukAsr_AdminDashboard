@@ -49,20 +49,38 @@ const UpdateCase = () => {
     const [arrayGenderEn,setArrayGenderEn] = useState([])
     const [arraySeasonEn,setArraySeasonEn] = useState([])
     useEffect(() => {
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/category/index`,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then(response => {
                 setDataCategories(response.data.Categories)
             }
             ).catch((err) => { console.log(err) })
 
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/donationtype/index`,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then(response => {
                 setDataType(response.data.Donationtypes)
                 console.log(response)
             }
             ).catch((err) => { console.log(err) })
 
-        axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${updateId.updateId}`)
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${updateId.updateId}`,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then((response) => {
                 setFormData({
                     titleAr: response.data.case.name_ar,
@@ -425,11 +443,13 @@ setImage([...imageUrl, ...ImagesArray]);
         const toastId = toast.loading("Please wait... ")
         setTimeout(() => { toast.dismiss(toastId); }, 1000);
         e.preventDefault()
-        axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/update/${updateId.updateId}`, addNewCase, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
+        axios.post(`https://otrok.invoacdmy.com/api/dashboard/case/update/${updateId.updateId}`, addNewCase,{
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+              "Content-Type": "multipart/form-data"
+    
+          }
+      })
             .then(response => {
                 toast.success(response.data.message)
                 console.log(response)

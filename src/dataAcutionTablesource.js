@@ -40,13 +40,20 @@ export const userColumns = [
         headerName: "End Time",
         width: 100,
     },
+   
     {
-
         field: "status",
-        headerName: "status",
+        headerName: "Status",
         width: 100,
-    },
-
-
+        renderCell: (params) => {
+    
+          return (
+           
+            <div className={`cellWithStatus ${params.row.status}`}>
+              {params.row.status}
+            </div>
+          );
+        },
+      }
 
 ];

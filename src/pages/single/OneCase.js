@@ -8,8 +8,9 @@ import { Link, useParams } from 'react-router-dom';
 import DonationList from "../../components/table/DonationList";
 import { Carousel } from "react-responsive-carousel";
 const OneCase = () => {
-  const [oneCaseData, setOneCaseData] = useState({})
+  const [oneCaseData, setOneCaseData] = useState()
   const [one, setOne] = useState([])
+  const [items, setItems] = useState([])
   const casesId = useParams()
 
 
@@ -23,8 +24,8 @@ const OneCase = () => {
       }
   })
       .then((response) => {
-        console.log(response.data.case)
         setOneCaseData(response.data?.case)
+        setItems(response.data?.case?.item)
         setOne(response.data?.case?.caseimage)
       }).catch((err) => { console.log(err) })
 
@@ -42,7 +43,7 @@ const OneCase = () => {
             <Link to={`/edit/${oneCaseData?.id}`} className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
-              <Carousel width={350} autoPlay interval="1000" transitionTime="1000" >
+              <Carousel width={300} autoPlay interval="1000" transitionTime="1000" >
                 {one && one.map((imgSrc, index) => (<img src={imgSrc?.image} key={index} alt="" />))}
               </Carousel>
 
@@ -94,6 +95,32 @@ const OneCase = () => {
                   <span className="itemKey">Remaining Amount:</span>
                   <span className="itemValue">{oneCaseData?.remaining_amount}</span>
                 </div>
+                { oneCaseData?.donationtype_id === '5'?
+                  <div className="detailItem">
+                    <span className="itemKey">Amount Details:</span>
+                  {items && items.map(item=>(
+                    <>
+                    <span className="itemValue mr-2">{item?.name_ar}/{item?.name_en} : {item?.amount + ' ,'} </span>
+                    </>
+                  ))}
+                  </div>
+                  :
+                  null
+                }
+                {oneCaseData?.donationtype_id === '4'?
+                    <>
+                        <div className="detailItem">
+                          <span className="itemKey">Gender:</span>
+                          <span className="itemValue">{oneCaseData?.gender_en}</span>
+                        </div>
+                        <div className="detailItem">
+                        <span className="itemKey">Seasons:</span>
+                        <span className="itemValue">{oneCaseData?.type_en}</span>
+                      </div>
+                    </>
+                    :
+                    null
+                }
                 {oneCaseData?.file ?
                 <div className="detailItem">
                   <span className="itemKey">File Attachment :</span>

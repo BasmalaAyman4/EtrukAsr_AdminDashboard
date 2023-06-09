@@ -20,6 +20,7 @@ import { useContext } from "react";
 import logo from './../../../src/assets/images/whiteLogo.png'
 import styles from "./Sidebar.module.css"
 import GavelIcon from '@mui/icons-material/Gavel';
+import {BiDonateHeart} from 'react-icons/bi'
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -35,22 +36,23 @@ const Sidebar = () => {
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
           <img src={logo} alt='' className={styles["side-bar__logo"]} />
-          {/* <span className="logo">Admin</span> */}
         </Link>
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+          <Link to="/" style={{ textDecoration: "none" }}>
+          <li> 
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
           </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/cases" style={{ textDecoration: "none" }}>
             <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Cases</span>
+                  <BiDonateHeart className="icon" />
+                  <span>Cases</span>
             </li>
           </Link>
           <Link to="/categories" style={{ textDecoration: "none" }}>

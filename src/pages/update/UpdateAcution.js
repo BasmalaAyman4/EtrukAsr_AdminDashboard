@@ -32,7 +32,7 @@ const UpdateAcution = () => {
     useEffect(() => {
 
 
-        axios.get(`https://otrok.invoacdmy.com/api/user/mazad/show/${updateId.updateAcutionId}`,{
+        axios.get(`https://otrok.invoacdmy.com/api/dashboard/mazad/show/${updateId.updateAcutionId}`,{
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
                 "Content-Type": "multipart/form-data"

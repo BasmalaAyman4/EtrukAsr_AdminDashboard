@@ -16,20 +16,22 @@ const OneCase = () => {
 
 
   useEffect(() => {
-    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`,{
+    axios.get(`https://otrok.invoacdmy.com/api/dashboard/case/show/${casesId.caseId}`, {
       headers: {
-          "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
-          "Content-Type": "multipart/form-data"
+        "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+        "Content-Type": "multipart/form-data"
 
       }
-  })
+    })
       .then((response) => {
         setOneCaseData(response.data?.case)
         setItems(response.data?.case?.item)
         setOne(response.data?.case?.caseimage)
+        console.log(response.data.case.paied_amount, "paied")
       }).catch((err) => { console.log(err) })
 
   }, [])
+
   console.log(one, "kk")
 
   return (
@@ -69,7 +71,7 @@ const OneCase = () => {
                   <span className="itemKey">Donation Type Ar: </span>
                   <span className="itemValue"> {oneCaseData?.donationtype?.name_ar}</span>
                 </div>
-                
+
                 <div className="detailItem">
                   <span className="itemKey">Donation Type En: </span>
                   <span className="itemValue"> {oneCaseData?.donationtype?.name_en}</span>
@@ -86,50 +88,55 @@ const OneCase = () => {
                   <span className="itemKey">Required Amount :</span>
                   <span className="itemValue">{oneCaseData?.initial_amount}</span>
                 </div>
-                <div className="detailItem">
-                  <span className="itemKey">Paied Amount:</span>
-                  <span className="itemValue">{oneCaseData?.paied_amount}</span>
-                </div>
+                {oneCaseData?.donationtype_id === '1' ?
+                  <div className="detailItem">
+                    <span className="itemKey">Paied Amount:</span>
+                    <span className="itemValue">{oneCaseData?.paied_amount}</span>
+                  </div>
+                  :
+                  null
+                }
+
 
                 <div className="detailItem">
                   <span className="itemKey">Remaining Amount:</span>
                   <span className="itemValue">{oneCaseData?.remaining_amount}</span>
                 </div>
-                { oneCaseData?.donationtype_id === '5'?
+                {oneCaseData?.donationtype_id === '5' ?
                   <div className="detailItem">
                     <span className="itemKey">Amount Details:</span>
-                  {items && items.map(item=>(
-                    <>
-                    <span className="itemValue mr-2">{item?.name_ar}/{item?.name_en} : {item?.amount + ' ,'} </span>
-                    </>
-                  ))}
+                    {items && items.map(item => (
+                      <>
+                        <span className="itemValue mr-2">{item?.name_ar}/{item?.name_en} : {item?.amount + ' ,'} </span>
+                      </>
+                    ))}
                   </div>
                   :
                   null
                 }
-                {oneCaseData?.donationtype_id === '4'?
-                    <>
-                        <div className="detailItem">
-                          <span className="itemKey">Gender:</span>
-                          <span className="itemValue">{oneCaseData?.gender_en}</span>
-                        </div>
-                        <div className="detailItem">
-                        <span className="itemKey">Seasons:</span>
-                        <span className="itemValue">{oneCaseData?.type_en}</span>
-                      </div>
-                    </>
-                    :
-                    null
+                {oneCaseData?.donationtype_id === '4' ?
+                  <>
+                    <div className="detailItem">
+                      <span className="itemKey">Gender:</span>
+                      <span className="itemValue">{oneCaseData?.gender_en}</span>
+                    </div>
+                    <div className="detailItem">
+                      <span className="itemKey">Seasons:</span>
+                      <span className="itemValue">{oneCaseData?.type_en}</span>
+                    </div>
+                  </>
+                  :
+                  null
                 }
                 {oneCaseData?.file ?
-                <div className="detailItem">
-                  <span className="itemKey">File Attachment :</span>
-                  <span className="itemValue"><Link to={oneCaseData?.file}>click here</Link></span>
-                </div>
-                
-                :
-                null
-                } 
+                  <div className="detailItem">
+                    <span className="itemKey">File Attachment :</span>
+                    <span className="itemValue"><Link to={oneCaseData?.file}>click here</Link></span>
+                  </div>
+
+                  :
+                  null
+                }
                 <div className="detailItem">
                   <span className="itemKey">Status:</span>
                   <span className="itemValue">{oneCaseData?.status}</span>

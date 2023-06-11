@@ -64,7 +64,7 @@ const DonationList = () => {
           
           return (
             <div className="cellAction">
-              <Link to={`/cases/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
              

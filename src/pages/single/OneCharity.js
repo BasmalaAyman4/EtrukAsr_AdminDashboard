@@ -36,7 +36,6 @@ const OneCharity = () => {
     
         <div className="top">
           <div className="left">
-            <Link to={`/editCategory/${oneCharityData.id}`} className="editButton">Edit</Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img
@@ -62,7 +61,18 @@ const OneCharity = () => {
                   <span className="itemKey">Description Ar:</span>
                   <span className="itemValue">{oneCharityData?.description_ar}</span>
                 </div>
-              
+                <div className="detailItem">
+                  <span className="itemKey">Email:</span>
+                  <span className="itemValue">{oneCharityData?.email}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Phone:</span>
+                  <span className="itemValue">{oneCharityData?.phone}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Address:</span>
+                  <span className="itemValue">{oneCharityData?.address}</span>
+                </div>
                
 
               </div>

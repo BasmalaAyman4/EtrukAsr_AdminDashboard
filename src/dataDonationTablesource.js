@@ -19,7 +19,7 @@ export const userColumns = [
     {
         field: "amount",
         headerName: "Amount",
-        width: 150,
+        width: 120,
         renderCell: (params) => {
     
           return (

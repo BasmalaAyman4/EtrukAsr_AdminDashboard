@@ -104,11 +104,6 @@ const Sidebar = () => {
             <span>Gold Price</span>
           </li>
           </Link>
-          <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
           <li onClick={() => { Logout() }}>
             <ExitToAppIcon className="icon" />
             <span>Logout</span>

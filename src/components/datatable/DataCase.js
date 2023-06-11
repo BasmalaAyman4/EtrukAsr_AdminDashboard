@@ -79,7 +79,7 @@ const DataCase = () => {
         </Link>
       </div>
       <DataGrid
-       key={seed}
+        key={seed}
         className="datagrid"
         rows={data}
         columns={userColumns.concat(actionColumn)}

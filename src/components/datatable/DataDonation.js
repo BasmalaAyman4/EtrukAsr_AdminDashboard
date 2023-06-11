@@ -53,11 +53,26 @@ const DataDonation = () => {
        })
     
     }
+    function handleDeleteCase(id) {
+
+      axios.get(`https://otrok.invoacdmy.com/api/dashboard/donation/destroy/${id}`, {
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
+      .then(response => {
+        toast.success(response.data.message)
+      }
+      ).catch((err) => { toast.error(err) })
+      reset()
+    }
     const actionColumn = [
       {
         field: "action",
         headerName: "Action",
-        width: 150,
+        width: 200,
         renderCell: (params) => {
           
           return (
@@ -65,7 +80,12 @@ const DataDonation = () => {
               <Link to={`/donation/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
-             
+              <button
+              onClick={(e)=>{handleDeleteCase(params.row.id)}}
+              className="deleteButton"
+            >
+              Delete
+            </button>
             
               <button   onClick={(e)=>{handleAcceptDonation(params.row.id)}} className="updateButton" >
                 accept 

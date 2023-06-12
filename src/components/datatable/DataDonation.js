@@ -100,7 +100,7 @@ const DataDonation = () => {
     return (
       <div className="datatable">
         <div className="datatableTitle">
-           Donations
+          All Donations
          
         </div>
         <DataGrid

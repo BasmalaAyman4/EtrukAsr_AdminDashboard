@@ -70,8 +70,10 @@ const NewCategory = () => {
   addNewCategory.append("name_en", formData.nameEn);
   addNewCategory.append("description_ar", formData.descriptionAr);
   addNewCategory.append("description_en", formData.descriptionEn);
-  addNewCategory.append("image", formData.img);
-  
+ 
+  if(imageUrl){
+    addNewCategory.append("image", formData.img);
+  }
   const onSubmitHandler = (e) => {
   
     const toastId = toast.loading("please wait ... ")

@@ -3,15 +3,15 @@ export const userColumns = [
     {
         field: "image",
         headerName: "Image",
-        width: 100,
+        width: 70,
         renderCell: (params) => {
-            return (
-                <div className="cellWithImg">
-                    <img className="cellImg" src={params.row.image} alt="avatar" />
-                </div>
-            );
+          return (
+            <div className="cellWithImg">
+              <img className="cellImg" src={params?.row?.mazadimage[0]?.image} alt="avatar" />
+            </div>
+          );
         },
-    },
+      },
     {
         field: "name_en",
         headerName: "Name En",

@@ -32,13 +32,28 @@ const DataVolunteer = () => {
         ).catch((err) => { console.log(err) })
         reset()
     }, [])
-
+    function handleDelete(id) {
+  
+      axios.post(`https://otrok.invoacdmy.com/api/dashboard/volunteer/destroy/${id}`,'',{
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('tokenA')}`,
+            "Content-Type": "multipart/form-data"
+  
+        }
+    })
+      .then(response => {
+        toast.success(response.data.message)
+        console.log(response)
+      }
+      ).catch((err) => { toast.error(err) })
+      reset()
+    }
     
     const actionColumn = [
       {
         field: "action",
         headerName: "Action",
-        width: 100,
+        width: 200,
         renderCell: (params) => {
           
           return (
@@ -46,8 +61,13 @@ const DataVolunteer = () => {
               <Link to={`/volunteer/${params.row.id}`} style={{ textDecoration: "none" }}>
                 <div className="viewButton">View</div>
               </Link>
+              <button
+                  onClick={(e)=>{handleDelete(params.row.id)}}
+                  className="deleteButton"
+              >
+                Delete
+              </button>
              
-            
            
               
          
@@ -59,7 +79,7 @@ const DataVolunteer = () => {
     return (
       <div className="datatable">
         <div className="datatableTitle">
-           Donations
+           All volunteers
          
         </div>
         <DataGrid

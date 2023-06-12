@@ -72,7 +72,7 @@ const DataEvent = () => {
     return (
       <div className="datatable">
         <div className="datatableTitle">
-          Add New Event
+            All events
           <Link to="/event/new" className="link">
             Add New
           </Link>

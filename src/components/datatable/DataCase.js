@@ -73,7 +73,7 @@ const DataCase = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New Case
+         All cases
         <Link to="/cases/new" className="link">
           Add New
         </Link>

@@ -71,7 +71,7 @@ const DataCategory = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Category
+                All categories
                 <Link to="/categories/new" className="link">
                     Add New
                 </Link>

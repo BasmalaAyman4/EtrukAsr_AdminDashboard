@@ -70,7 +70,7 @@ const DataType = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New DonationType
+                All DonationTypes
                 <Link to="/donaionTypes/new" className="link">
                     Add New
                 </Link>
